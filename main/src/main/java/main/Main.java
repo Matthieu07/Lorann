@@ -7,7 +7,7 @@ import model.ModelFacade;
 import view.ViewFacade;
 
 /**
- * <h1>The Class test Main.</h1>
+ * <h1>The Class bite Main.</h1>
  *
  * @author Jean-Aymeric DIET jadiet@cesi.fr
  * @version 1.0
