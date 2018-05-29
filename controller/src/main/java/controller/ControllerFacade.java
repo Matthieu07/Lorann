@@ -3,7 +3,7 @@ package controller;
 import java.sql.SQLException;
 import java.util.List;
 
-import model.Example;
+import model.Map;
 import model.IModel;
 import view.IView;
 
@@ -42,14 +42,14 @@ public class ControllerFacade implements IController {
      *             the SQL exception
      */
     public void start() throws SQLException {
-        this.getView().displayMessage(this.getModel().getExampleById(1).toString());
+        this.getView().displayMessage(this.getModel().getMapById(1).toString());
 
-        this.getView().displayMessage(this.getModel().getExampleByName("Example 2").toString());
+        this.getView().displayMessage(this.getModel().getMapByName("Map 2").toString());
 
-        final List<Example> examples = this.getModel().getAllExamples();
+        final List<Map> maps = this.getModel().getAllMaps();
         final StringBuilder message = new StringBuilder();
-        for (final Example example : examples) {
-            message.append(example);
+        for (final Map map : maps) {
+            message.append(map);
             message.append('\n');
         }
         this.getView().displayMessage(message.toString());
