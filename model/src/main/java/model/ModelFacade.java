@@ -20,26 +20,47 @@ public final class ModelFacade implements IModel {
         super();
     }
 
-    /*
-     * (non-Javadoc)
-     * @see model.IModel#getExampleById(int)
+    /**
+     * @param id
+     * 			the map identifier.
+     * 
+     * return the map by the id.
+     * 
+     * @return the id of the map. 
+     * 
+     * @throws SQLException if the SQL have exceptions.
+     * 
+     * @see model.IModel#getMapById(int)
      */
     @Override
     public Map getMapById(final int id) throws SQLException {
         return MapDAO.getMapById(id);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see model.IModel#getExampleByName(java.lang.String)
+    /**
+     * @param name
+     * 			the name of the map.
+     * 
+     * return the name of the map.
+     * 
+     * @return the name of the map. 
+     * 
+     * @throws SQLException if the SQL have exceptions.
+     * 
+     * @see model.IModel#getMapByName(java.lang.String)
      */
     @Override
     public Map getMapByName(final String name) throws SQLException {
         return MapDAO.getMapByName(name);
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * return the list of all the maps.
+     * 
+     * @return the list of all the maps.
+     * 
+     * @throws SQLException if the SQL have exceptions.
+     * 
      * @see model.IModel#getAllMaps()
      */
     @Override
