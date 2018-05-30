@@ -71,7 +71,7 @@ public class ControllerFacade implements IController, KeyListener  {
 		
 	}
 	//https://stackoverflow.com/questions/10876491/how-to-use-keylistener
-
+	//avec addlistenner(this);
 	@Override
 	public void keyPressed(KeyEvent key) {
 		
@@ -97,6 +97,9 @@ public class ControllerFacade implements IController, KeyListener  {
             break;
 		}
 		
+		/*getTypeBlock();
+		setLorannPos();
+		getLorannPos();*/
 	}
 
 	@Override
