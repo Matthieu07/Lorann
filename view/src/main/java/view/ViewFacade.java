@@ -23,7 +23,7 @@ import javax.swing.JLabel;
  * @author Jean-Aymeric DIET jadiet@cesi.fr
  * @version 1.0
  */
-public class ViewFacade extends JFrame implements IView, KeyListener {
+public class ViewFacade extends JFrame implements IView {
 
     /**
      * Instantiates a new view facade.
@@ -39,7 +39,7 @@ public class ViewFacade extends JFrame implements IView, KeyListener {
         JPanel pan = new JPanel();
         this.setLayout(null);
         this.getContentPane().setBackground(Color.black);
-        addKeyListener(this);
+        //addKeyListener(this);
     }
 
     public void printMap(String level) {
@@ -149,17 +149,12 @@ public class ViewFacade extends JFrame implements IView, KeyListener {
                     break;
             }
             
-            //Graphics g;
-            //pan.paint(g);
-            int score = 0;
-            JTextArea textArea = new JTextArea("Votre score est :" + score, 432, 50);
-            textArea.setSelectedTextColor(Color.white);
         }
 
         this.setVisible(true);
     }
     
-    @Override
+    /*@Override
 	public void keyPressed(KeyEvent key) {
 		
 		int touche = key.getKeyCode();
@@ -183,7 +178,7 @@ public class ViewFacade extends JFrame implements IView, KeyListener {
             //fonctionPourReculer();
             break;
 		}
-    }
+    }*/
     /*
      * (non-Javadoc)
      * @see view.IView#displayMessage(java.lang.String)
@@ -191,7 +186,7 @@ public class ViewFacade extends JFrame implements IView, KeyListener {
 /*    @Override
     public final void displayMessage(final String message) {
         JOptionPane.showMessageDialog(null, message);
-    }*/
+    }
 
 	@Override
 	public void displayMessage(String message) {
@@ -199,7 +194,7 @@ public class ViewFacade extends JFrame implements IView, KeyListener {
 		
 	}
 
-	@Override
+	/*@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 	}
@@ -208,6 +203,6 @@ public class ViewFacade extends JFrame implements IView, KeyListener {
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		
-	}
+	}*/
 
 }

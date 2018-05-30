@@ -45,7 +45,7 @@ public class ControllerFacade implements IController  {
      *             the SQL exception
      */
     public void start() throws SQLException {
-    	/*this.getView().printMap("NNFFGGGGGGGGGGGGGGGF"
+    	this.getView().printMap("NNFFGGGGGGGGGGGGGGGF"
 				                + "NFFNNNNNNNNNNNNNNANH"
 				                + "FFNNNNNNNNNNNNNNNNNH"
 				                + "FNDNFGGGGGGGFMFNFGGF"
@@ -56,8 +56,8 @@ public class ControllerFacade implements IController  {
 				                + "HNNNHNNNNKNNNMHNNNNH"
 				                + "FGFNHNFGGGGGGFFGGFNH"
 				                + "HCNNHNNNNINNMHMNMNNH"
-				                + "FGGGFGGGGGGGGFGGGGGF");*/
-        this.getView().displayMessage(this.getModel().getExampleById(1).toString());
+				                + "FGGGFGGGGGGGGFGGGGGF");
+        /*this.getView().displayMessage(this.getModel().getExampleById(1).toString());
 
         this.getView().displayMessage(this.getModel().getExampleByName("Example 2").toString());
 
@@ -67,7 +67,7 @@ public class ControllerFacade implements IController  {
             message.append(example);
             message.append('\n');
         }
-        this.getView().displayMessage(message.toString());
+        this.getView().displayMessage(message.toString());*/
     }
     
 	private IModel getModel() {
