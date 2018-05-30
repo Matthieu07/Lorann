@@ -56,8 +56,11 @@ public class Map {
         this.name = name;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * return the id and the name of a map
+     * 
+     * @return the id and the name of a map
+     * 
      * @see java.lang.Object#toString()
      */
     @Override
