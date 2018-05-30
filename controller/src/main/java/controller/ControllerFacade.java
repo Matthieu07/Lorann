@@ -53,7 +53,7 @@ public class ControllerFacade implements IController {
             message.append('\n');
         }
         this.getView().displayMessage(message.toString());*/
-    	this.getView().printMap("NNFFGGGGGGGGGGGGGGGF"
+    	/*this.getView().printMap("NNFFGGGGGGGGGGGGGGGF"
     						  + "NFFNNNNNNNNNNNNNNANH"
     						  + "FFNNNNNNNNNNNNNNNNNH"
     						  + "FNDNFGGGGGGGFMFNFGGF"
@@ -64,7 +64,20 @@ public class ControllerFacade implements IController {
     						  + "HNNNHNNNNKNNNMHNNNNH"
     						  + "FGFNHNFGGGGGGFFGGFNH"
     						  + "HCNNHNNNNINNMHMNMNNH"
-    						  + "FGGGFGGGGGGGGFGGGGGF");
+    						  + "FGGGFGGGGGGGGFGGGGGF");*/
+    	
+    	this.getView().printMap("FGGGGGGGGGGGGGGGGGGF"
+    						  + "HNANNNNNNNNNNNNNNINH"
+    						  + "HGGGGGGFNFGGGGGGFNNH"
+    						  + "HNNNNNNHCHNNNNNNHNNH"
+    						  + "FGGGGGGFGFGGGGGGFNMH"
+    						  + "HMNNNNNNNNNNNNNNNNNH"
+    						  + "FGGGGGGGGFNNNNNNNNNH"
+    						  + "HNNKNNNHNNNNNNNJNNNH"
+    						  + "HNNNNFNHNNNNNNNNNNNH"
+    						  + "HNNNNHNFGNFGGNNNNNNH"
+    						  + "HMNNNHNNNNHNNHNLNNNH"
+    						  + "FGGGGGGGGGFDNFGGGGGF");
     	System.out.println(this.getView().getTypeBlock(this.getView().getLorannPosx(), this.getView().getLorannPosy()));
     	
     }
