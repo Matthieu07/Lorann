@@ -65,6 +65,8 @@ public class ControllerFacade implements IController {
     						  + "FGFNHNFGGGGGGFFGGFNH"
     						  + "HCNNHNNNNINNMHMNMNNH"
     						  + "FGGGFGGGGGGGGFGGGGGF");
+    	System.out.println(this.getView().getTypeBlock(this.getView().getLorannPosx(), this.getView().getLorannPosy()));
+    	
     }
 
     /**

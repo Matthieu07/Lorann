@@ -17,4 +17,10 @@ public interface IView {
     void displayMessage(String message);
     
     void printMap(String level);
+
+	int getLorannPosx();
+
+	int getLorannPosy();
+
+	char getTypeBlock(int lorannPosx, int lorannPosy);
 }
