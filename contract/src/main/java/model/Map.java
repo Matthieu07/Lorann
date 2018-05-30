@@ -9,7 +9,7 @@ package model;
 public class Map {
 
     /** The id. */
-    private final int id;
+    private int id;//il y avait un final ici
 
     /** The name. */
     private String    name;
@@ -35,6 +35,16 @@ public class Map {
      */
     public int getId() {
         return this.id;
+    }
+    
+    /**
+     * Sets the dd.
+     *
+     * @param id
+     *            the new id
+     */
+    public void setId(final int id) {
+        this.id = id;
     }
 
     /**
