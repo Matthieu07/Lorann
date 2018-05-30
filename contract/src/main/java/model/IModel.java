@@ -13,31 +13,31 @@ import java.util.Map;
 public interface IModel {
 
     /**
-     * Gets the example by id.
+     * Gets the map by id.
      *
      * @param id
      *            the id
-     * @return the example by id
+     * @return the map by id
      * @throws SQLException
      *             the SQL exception
      */
     model.Map getMapById(int id) throws SQLException;
 
     /**
-     * Gets the example by name.
+     * Gets the map by name.
      *
      * @param name
      *            the name
-     * @return the example by name
+     * @return the map by name
      * @throws SQLException
      *             the SQL exception
      */
     model.Map getMapByName(String name) throws SQLException;
 
     /**
-     * Gets the all examples.
+     * Gets the all maps.
      *
-     * @return the all examples
+     * @return the all maps
      * @throws SQLException
      *             the SQL exception
      */

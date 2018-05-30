@@ -9,20 +9,20 @@ import java.util.List;
 import model.Map;
 
 /**
- * <h1>The Class ExampleDAO.</h1>
+ * <h1>The Class MapDAO.</h1>
  *
  * @author Jean-Aymeric DIET jadiet@cesi.fr
  * @version 1.0
  */
 public abstract class MapDAO extends AbstractDAO {
 
-    /** The sql example by id. */
+    /** The sql map by id. */
     private static String sqlMapById   = "{call findMapById(?)}";
 
-    /** The sql example by name. */
+    /** The sql map by name. */
     private static String sqlMapByName = "{call findMapByName(?)}";
 
-    /** The sql all examples. */
+    /** The sql all maps. */
     private static String sqlAllMaps   = "{call findAllMaps()}";
 
     /** The id column index. */
@@ -32,11 +32,11 @@ public abstract class MapDAO extends AbstractDAO {
     private static int    nameColumnIndex  = 2;
 
     /**
-     * Gets the example by id.
+     * Gets the map by id.
      *
      * @param id
      *            the id
-     * @return the example by id
+     * @return the map by id
      * @throws SQLException
      *             the SQL exception
      */
@@ -55,11 +55,11 @@ public abstract class MapDAO extends AbstractDAO {
     }
 
     /**
-     * Gets the example by name.
+     * Gets the map by name.
      *
      * @param name
      *            the name
-     * @return the example by name
+     * @return the map by name
      * @throws SQLException
      *             the SQL exception
      */
@@ -79,9 +79,9 @@ public abstract class MapDAO extends AbstractDAO {
     }
 
     /**
-     * Gets the all examples.
+     * Gets the all maps.
      *
-     * @return the all examples
+     * @return the all maps
      * @throws SQLException
      *             the SQL exception
      */

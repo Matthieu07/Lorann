@@ -1,7 +1,7 @@
 package model;
 
 /**
- * <h1>The Class Example.</h1>
+ * <h1>The Class Map.</h1>
  *
  * @author Jean-Aymeric DIET jadiet@cesi.fr
  * @version 1.0
@@ -15,7 +15,7 @@ public class Map {
     private String    name;
 
     /**
-     * Instantiates a new example.
+     * Instantiates a new map.
      *
      * @param id
      *            the id
