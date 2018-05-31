@@ -66,19 +66,18 @@ public class ControllerFacade implements IController {
     						  + "HCNNHNNNNINNMHMNMNNH"
     						  + "FGGGFGGGGGGGGFGGGGGF");*/
     	
-    	this.getView().printMap("FGGGGGGGGGGGGGGGGGGF"
-    						  + "HNANNNNNNNNNNNNNNINH"
-    						  + "HGGGGGGFNFGGGGGGFNNH"
-    						  + "HNNNNNNHCHNNNNNNHNNH"
-    						  + "FGGGGGGFGFGGGGGGFNMH"
-    						  + "HMNNNNNNNNNNNNNNNNNH"
-    						  + "FGGGGGGGGFNNNNNNNNNH"
-    						  + "HNNKNNNHNNNNNNNJNNNH"
-    						  + "HNNNNFNHNNNNNNNNNNNH"
-    						  + "HNNNNHNFGNFGGNNNNNNH"
-    						  + "HMNNNHNNNNHNNHNLNNNH"
-    						  + "FGGGGGGGGGFDNFGGGGGF");
-    	System.out.println(this.getView().getTypeBlock(this.getView().getLorannPosx(), this.getView().getLorannPosy()));
+    	this.getView().ViewFacade("FGGGGGGGGGGGGGGGGGGF"
+								+ "HNANNNNNNNNNNNNNNNIH"
+								+ "HGGGGGGFNFGGGGGGFNNH"
+								+ "HNNNNNNHCHNNNNNNHNNH"
+								+ "FGGGGGGFGFGGGGGGFNMH"
+								+ "HMNNNNNNNNNNNNNNNNNH"
+								+ "FGGGGGGGGFNNNNNNNNNH"
+								+ "HNNKNNNHNNNNNNNJNNNH"
+								+ "HNNNNFNHNNNNNNNNNNNH"
+								+ "HNNNNHNFGNFGGFNNNNNH"
+								+ "HMNNNHNNNNHNNNNLNNNH"
+								+ "FGGGGGGGGGFDNFGGGGGF");
     	
     }
 

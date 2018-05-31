@@ -14,13 +14,6 @@ public interface IView {
      * @param message
      *            the message
      */
-    void displayMessage(String message);
-    
-    void printMap(String level);
 
-	int getLorannPosx();
-
-	int getLorannPosy();
-
-	char getTypeBlock(int lorannPosx, int lorannPosy);
+	void ViewFacade(String string);
 }
