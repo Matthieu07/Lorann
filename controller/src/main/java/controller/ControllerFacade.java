@@ -42,17 +42,7 @@ public class ControllerFacade implements IController {
      *             the SQL exception
      */
     public void start() throws SQLException {
-        this.getView().displayMessage(this.getModel().getMapById(1).toString());
-
-        this.getView().displayMessage(this.getModel().getMapByName("Map 2").toString());
-
-        final List<Map> maps = this.getModel().getAllMaps();
-        final StringBuilder message = new StringBuilder();
-        for (final Map map : maps) {
-            message.append(map);
-            message.append('\n');
-        }
-        this.getView().displayMessage(message.toString());
+        this.getView().ViewFacade(this.getModel().getMapById(1));
     }
 
     /**

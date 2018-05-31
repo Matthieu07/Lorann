@@ -33,7 +33,7 @@ public final class ModelFacade implements IModel {
      * @see model.IModel#getMapById(int)
      */
     @Override
-    public Map getMapById(final int id) throws SQLException {
+    public String getMapById(final int id) throws SQLException {
         return MapDAO.getMapById(id);
     }
 
@@ -50,7 +50,7 @@ public final class ModelFacade implements IModel {
      * @see model.IModel#getMapByName(java.lang.String)
      */
     @Override
-    public Map getMapByName(final String name) throws SQLException {
+    public String getMapByName(final String name) throws SQLException {
         return MapDAO.getMapByName(name);
     }
 
@@ -64,7 +64,7 @@ public final class ModelFacade implements IModel {
      * @see model.IModel#getAllMaps()
      */
     @Override
-    public List<Map> getAllMaps() throws SQLException {
+    public List<String> getAllMaps() throws SQLException {
         return MapDAO.getAllMaps();
     }
 

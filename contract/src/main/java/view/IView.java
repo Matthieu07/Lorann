@@ -9,10 +9,10 @@ package view;
 public interface IView {
 
     /**
-     * Display message.
+     * ViewFacade.
      *
-     * @param message
-     *            the message
+     * @param level
+     *            the level
      */
-    void displayMessage(String message);
+    void ViewFacade(String level);
 }

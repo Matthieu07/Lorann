@@ -40,14 +40,14 @@ public abstract class MapDAO extends AbstractDAO {
      * @throws SQLException
      *             the SQL exception
      */
-    public static Map getMapById(final int id) throws SQLException {
+    public static String getMapById(final int id) throws SQLException {
         final CallableStatement callStatement = prepareCall(sqlMapById);
-        Map map = null;
+        String map = null;
         callStatement.setInt(1, id);
         if (callStatement.execute()) {
             final ResultSet result = callStatement.getResultSet();
             if (result.first()) {
-                map = new Map(result.getInt(idColumnIndex), result.getString(nameColumnIndex));
+                map = new String(result.getString(nameColumnIndex));
             }
             result.close();
         }
@@ -63,15 +63,15 @@ public abstract class MapDAO extends AbstractDAO {
      * @throws SQLException
      *             the SQL exception
      */
-    public static Map getMapByName(final String name) throws SQLException {
+    public static String getMapByName(final String name) throws SQLException {
         final CallableStatement callStatement = prepareCall(sqlMapByName);
-        Map map = null;
+        String map = null;
 
         callStatement.setString(1, name);
         if (callStatement.execute()) {
             final ResultSet result = callStatement.getResultSet();
             if (result.first()) {
-                map = new Map(result.getInt(idColumnIndex), result.getString(nameColumnIndex));
+                map = new String(Integer.toString(result.getInt(idColumnIndex)));
             }
             result.close();
         }
@@ -85,14 +85,14 @@ public abstract class MapDAO extends AbstractDAO {
      * @throws SQLException
      *             the SQL exception
      */
-    public static List<Map> getAllMaps() throws SQLException {
-        final ArrayList<Map> maps = new ArrayList<Map>();
+    public static List<String> getAllMaps() throws SQLException {
+        final ArrayList<String> maps = new ArrayList<String>();
         final CallableStatement callStatement = prepareCall(sqlAllMaps);
         if (callStatement.execute()) {
             final ResultSet result = callStatement.getResultSet();
 
             for (boolean isResultLeft = result.first(); isResultLeft; isResultLeft = result.next()) {
-                maps.add(new Map(result.getInt(idColumnIndex), result.getString(nameColumnIndex)));
+                maps.add(new String(result.getString(nameColumnIndex)));
             }
             result.close();
         }

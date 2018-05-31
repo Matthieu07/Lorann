@@ -21,7 +21,7 @@ public interface IModel {
      * @throws SQLException
      *             the SQL exception
      */
-    model.Map getMapById(int id) throws SQLException;
+	String getMapById(int id) throws SQLException;
 
     /**
      * Gets the map by name.
@@ -32,14 +32,14 @@ public interface IModel {
      * @throws SQLException
      *             the SQL exception
      */
-    model.Map getMapByName(String name) throws SQLException;
+	String getMapByName(String name) throws SQLException;
 
     /**
      * Gets the all maps.
      *
-     * @return the all maps
+     * @return all the maps 
      * @throws SQLException
      *             the SQL exception
      */
-    List<model.Map> getAllMaps() throws SQLException;
+    List<String> getAllMaps() throws SQLException;
 }
