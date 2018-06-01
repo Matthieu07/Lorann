@@ -65,7 +65,19 @@ public class ViewFacade extends JFrame implements IView {
 		 * 
 		 */
 		private JLabel l = new JLabel();
+        private JLabel f1 = new JLabel();
+		private JLabel m1 = new JLabel();
+		private JLabel m2 = new JLabel();
+		private JLabel m3 = new JLabel();
+		private JLabel m4 = new JLabel();
+		private boolean move1 = false;
+		private boolean move2 = false;
+		private boolean move3 = false;
+		private boolean move4 = false;
+		private boolean br = true;
 		private int points = 0;
+		private int oldxDelta = 0;
+		private int oldyDelta = 0;
 		private char map[][] = { {'N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N'},
 								 {'N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N'},
 								 {'N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N'},
@@ -97,7 +109,6 @@ public class ViewFacade extends JFrame implements IView {
                             map[y][x] = caracter;
                             break;
                         case 'B':
-                            JLabel f1 = new JLabel();
                             f1.setIcon(new ImageIcon(new ImageIcon("sprite/Fireball.gif").getImage().getScaledInstance(64, 64, Image.SCALE_DEFAULT)));
                             //f1.setBounds((i%20)*64, ((i-(i%20))/20)*42, (i%20)*64+64, ((i-(i%20))/20)*42+64);
                             add(f1);
@@ -146,28 +157,24 @@ public class ViewFacade extends JFrame implements IView {
                             map[y][x] = caracter;
                             break;
                         case 'I':
-                            JLabel m1 = new JLabel();
                             m1.setIcon(new ImageIcon(new ImageIcon("sprite/monster_1.png").getImage().getScaledInstance(64, 64, Image.SCALE_DEFAULT)));
                             //m1.setBounds((i%20)*64, ((i-(i%20))/20)*42, (i%20)*64+64, ((i-(i%20))/20)*42+64);
                             add(m1);
                             map[y][x] = caracter;
                             break;
                         case 'J':
-                            JLabel m2 = new JLabel();
                             m2.setIcon(new ImageIcon(new ImageIcon("sprite/monster_2.png").getImage().getScaledInstance(64, 64, Image.SCALE_DEFAULT)));
                             //m2.setBounds((i%20)*64, ((i-(i%20))/20)*42, (i%20)*64+64, ((i-(i%20))/20)*42+64);
                             add(m2);
                             map[y][x] = caracter;
                             break;
                         case 'K':
-                            JLabel m3 = new JLabel();
                             m3.setIcon(new ImageIcon(new ImageIcon("sprite/monster_3.png").getImage().getScaledInstance(64, 64, Image.SCALE_DEFAULT)));
                             //m3.setBounds((i%20)*64, ((i-(i%20))/20)*42, (i%20)*64+64, ((i-(i%20))/20)*42+64);
                             add(m3);
                             map[y][x] = caracter;
                             break;
                         case 'L':
-                            JLabel m4 = new JLabel();
                             m4.setIcon(new ImageIcon(new ImageIcon("sprite/monster_4.png").getImage().getScaledInstance(64, 64, Image.SCALE_DEFAULT)));
                             //m4.setBounds((i%20)*64, ((i-(i%20))/20)*42, (i%20)*64+64, ((i-(i%20))/20)*42+64);
                             add(m4);
@@ -224,6 +231,7 @@ public class ViewFacade extends JFrame implements IView {
             addKeyBinding("right", KeyEvent.VK_D, new MoveAction(1, 0));
             addKeyBinding("up", KeyEvent.VK_Z, new MoveAction(0, -1));
             addKeyBinding("down", KeyEvent.VK_S, new MoveAction(0, 1));
+            addKeyBinding("space", KeyEvent.VK_SPACE, new MoveAction(2, 2));
         }
 
         protected void addKeyBinding(String name, int keyCode, Action action) {
@@ -250,9 +258,37 @@ public class ViewFacade extends JFrame implements IView {
             @Override
             public void actionPerformed(ActionEvent e) {
             	
-                Thread t = new Thread(new RunImpl(xDelta, yDelta));
-                t.start();
-            	
+                if (xDelta == 2 && yDelta == 2 && br) {
+                	br = false;
+                	Thread b = new Thread(new RunImplball());
+                    b.start();
+                }
+                else if (xDelta != 2 && yDelta != 2) {
+                	Thread t = new Thread(new RunImpl(xDelta, yDelta));
+                    t.start();
+                    oldxDelta = xDelta;
+                    oldyDelta = yDelta;
+                }
+                if (!move1) {
+                	move1 = true;
+                	Thread m1 = new Thread(new RunImplmob1());
+                	m1.start();
+                }
+                if (!move2) {
+                	move2 = true;
+                	Thread m2 = new Thread(new RunImplmob2());
+                	m2.start();
+                }
+                if (!move3) {
+                	move3 = true;
+                	Thread m3 = new Thread(new RunImplmob3());
+                	m3.start();
+                }
+                if (!move4) {
+                	move4 = true;
+                	Thread m4 = new Thread(new RunImplmob4());
+                	m4.start();
+                }
             }
 
         }
@@ -272,8 +308,10 @@ public class ViewFacade extends JFrame implements IView {
                 index += (yDelta * 20);
                 if ((index-(index%20))/20 < 0 || (index-(index%20))/20 > 11) {
                     index -= (yDelta * 20);
+                    oldyDelta -= yDelta;
                 } else if (index%20 < 0 || index%20 > 19) {
                 	index -= xDelta;
+                	oldxDelta -= xDelta;
                 }
                 
                 if (map[(index-(index%20))/20][index%20] == 'N')
@@ -291,40 +329,77 @@ public class ViewFacade extends JFrame implements IView {
 			                map[(index-(index%20))/20][index%20] = 'A';
 			                revalidate();
 			                repaint();
-			                TimeUnit.MILLISECONDS.sleep(400);
+			                TimeUnit.MILLISECONDS.sleep(500);
 			                l.setIcon(new ImageIcon(new ImageIcon("sprite/Lorann.gif").getImage().getScaledInstance(64, 64, Image.SCALE_DEFAULT)));
 							revalidate();
 			                repaint();
 			                
 						} catch (InterruptedException e1) {
-							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
-                		
                 	}
                 	else if (xDelta == 1 && yDelta == 0) {
-                		setComponentZOrder(getComponent(index), index2);
-    	                map[(index2 -(index2%20))/20][index2%20] = 'N';
-    	                setComponentZOrder(l, index);
-    	                map[(index-(index%20))/20][index%20] = 'A';
-    	                revalidate();
-    	                repaint();
+                		l.setIcon(new ImageIcon(new ImageIcon("sprite/lorann_r.png").getImage().getScaledInstance(64, 64, Image.SCALE_DEFAULT)));
+                		try {
+                			
+                			revalidate();
+			                repaint();
+			                setComponentZOrder(getComponent(index), index2);
+			                map[(index2 -(index2%20))/20][index2%20] = 'N';
+			                setComponentZOrder(l, index);
+			                map[(index-(index%20))/20][index%20] = 'A';
+			                revalidate();
+			                repaint();
+			                TimeUnit.MILLISECONDS.sleep(500);
+			                l.setIcon(new ImageIcon(new ImageIcon("sprite/Lorann.gif").getImage().getScaledInstance(64, 64, Image.SCALE_DEFAULT)));
+							revalidate();
+			                repaint();
+			                
+						} catch (InterruptedException e1) {
+							e1.printStackTrace();
+						}
                 	}
                 	else if (xDelta == 0 && yDelta == -1) {
-                		setComponentZOrder(getComponent(index), index2);
-    	                map[(index2 -(index2%20))/20][index2%20] = 'N';
-    	                setComponentZOrder(l, index);
-    	                map[(index-(index%20))/20][index%20] = 'A';
-    	                revalidate();
-    	                repaint();
+                		l.setIcon(new ImageIcon(new ImageIcon("sprite/lorann_u.png").getImage().getScaledInstance(64, 64, Image.SCALE_DEFAULT)));
+                		try {
+                			
+                			revalidate();
+			                repaint();
+			                setComponentZOrder(getComponent(index), index2);
+			                map[(index2 -(index2%20))/20][index2%20] = 'N';
+			                setComponentZOrder(l, index);
+			                map[(index-(index%20))/20][index%20] = 'A';
+			                revalidate();
+			                repaint();
+			                TimeUnit.MILLISECONDS.sleep(500);
+			                l.setIcon(new ImageIcon(new ImageIcon("sprite/Lorann.gif").getImage().getScaledInstance(64, 64, Image.SCALE_DEFAULT)));
+							revalidate();
+			                repaint();
+			                
+						} catch (InterruptedException e1) {
+							e1.printStackTrace();
+						}
                 	}
                 	else if (xDelta == 0 && yDelta == 1) {
-                		setComponentZOrder(getComponent(index), index2);
-    	                map[(index2 -(index2%20))/20][index2%20] = 'N';
-    	                setComponentZOrder(l, index);
-    	                map[(index-(index%20))/20][index%20] = 'A';
-    	                revalidate();
-    	                repaint();
+                		l.setIcon(new ImageIcon(new ImageIcon("sprite/lorann_b.png").getImage().getScaledInstance(64, 64, Image.SCALE_DEFAULT)));
+                		try {
+                			
+                			revalidate();
+			                repaint();
+			                setComponentZOrder(getComponent(index), index2);
+			                map[(index2 -(index2%20))/20][index2%20] = 'N';
+			                setComponentZOrder(l, index);
+			                map[(index-(index%20))/20][index%20] = 'A';
+			                revalidate();
+			                repaint();
+			                TimeUnit.MILLISECONDS.sleep(500);
+			                l.setIcon(new ImageIcon(new ImageIcon("sprite/Lorann.gif").getImage().getScaledInstance(64, 64, Image.SCALE_DEFAULT)));
+							revalidate();
+			                repaint();
+			                
+						} catch (InterruptedException e1) {
+							e1.printStackTrace();
+						}
                 	}
                 }
                 else if (map[(index-(index%20))/20][index%20] == 'C') {
@@ -366,6 +441,308 @@ public class ViewFacade extends JFrame implements IView {
 	                revalidate();
 	                repaint();
                 }
+        	}
+        }
+        public class RunImplmob1 implements Runnable {
+        	private int xDelta = 0;
+        	private int yDelta = 0;
+        	
+        	public RunImplmob1 () {
+        	}
+        	
+        	public void run() {
+        		
+        		while(move1) {
+        			try {
+		        		int indexm1 = getComponentZOrder(m1), indm1 = getComponentZOrder(m1);
+		        		xDelta = (int)( Math.random()*3 ) - 1;
+		        		yDelta = (int)( Math.random()*3 ) - 1;
+		                indexm1 += xDelta;
+		                indexm1 += (yDelta * 20);
+		                if ((indexm1-(indexm1%20))/20 < 0 || (indexm1-(indexm1%20))/20 > 11) {
+		                	indexm1 -= (yDelta * 20);
+		                } else if (indexm1%20 < 0 || indexm1%20 > 19) {
+		                	indexm1 -= xDelta;
+		                }
+		                if (map[(indexm1-(indexm1%20))/20][indexm1%20] == 'N')
+		                {
+			                map[(indexm1-(indexm1%20))/20][indexm1%20] = 'I';
+			                map[(indm1 -(indm1%20))/20][indm1%20] = 'N';
+			                setComponentZOrder(getComponent(indexm1), indm1);
+			                setComponentZOrder(m1, indexm1);
+			                revalidate();
+			                repaint();
+			                TimeUnit.MILLISECONDS.sleep(00);
+		                }
+        			}
+        			catch (InterruptedException e1) {
+						e1.printStackTrace();
+        			}
+        		}
+        	}
+        }
+        public class RunImplmob2 implements Runnable {
+        	private int xDelta = 0;
+        	private int yDelta = 0;
+        	
+        	public RunImplmob2 () {
+        	}
+        	
+        	public void run() {
+        		
+        		while(move2) {
+        			try {
+		        		int indexm2 = getComponentZOrder(m2), indm2 = getComponentZOrder(m2);
+		        		xDelta = (int)( Math.random()*3 ) - 1;
+		        		yDelta = (int)( Math.random()*3 ) - 1;
+		                indexm2 += xDelta;
+		                indexm2 += (yDelta * 20);
+		                if ((indexm2-(indexm2%20))/20 < 0 || (indexm2-(indexm2%20))/20 > 11) {
+		                	indexm2 -= (yDelta * 20);
+		                } else if (indexm2%20 < 0 || indexm2%20 > 19) {
+		                	indexm2 -= xDelta;
+		                }
+		                if (map[(indexm2-(indexm2%20))/20][indexm2%20] == 'N')
+		                {
+			                map[(indexm2-(indexm2%20))/20][indexm2%20] = 'J';
+			                map[(indm2 -(indm2%20))/20][indm2%20] = 'N';
+			                setComponentZOrder(getComponent(indexm2), indm2);
+			                setComponentZOrder(m2, indexm2);
+			                revalidate();
+			                repaint();
+			                TimeUnit.MILLISECONDS.sleep(00);
+		                }
+        			}
+        			catch (InterruptedException e1) {
+						e1.printStackTrace();
+        			}
+        		}
+        	}
+        }
+        public class RunImplmob3 implements Runnable {
+        	private int xDelta = 0;
+        	private int yDelta = 0;
+        	
+        	public RunImplmob3 () {
+        	}
+        	
+        	public void run() {
+        		
+        		while(move3) {
+        			try {
+		        		int indexm3 = getComponentZOrder(m3), indm3 = getComponentZOrder(m3);
+		        		xDelta = (int)( Math.random()*3 ) - 1;
+		        		yDelta = (int)( Math.random()*3 ) - 1;
+		                indexm3 += xDelta;
+		                indexm3 += (yDelta * 20);
+		                if ((indexm3-(indexm3%20))/20 < 0 || (indexm3-(indexm3%20))/20 > 11) {
+		                	indexm3 -= (yDelta * 20);
+		                } else if (indexm3%20 < 0 || indexm3%20 > 19) {
+		                	indexm3 -= xDelta;
+		                }
+		                if (map[(indexm3-(indexm3%20))/20][indexm3%20] == 'N')
+		                {
+			                map[(indexm3-(indexm3%20))/20][indexm3%20] = 'K';
+			                map[(indm3 -(indm3%20))/20][indm3%20] = 'N';
+			                setComponentZOrder(getComponent(indexm3), indm3);
+			                setComponentZOrder(m3, indexm3);
+			                revalidate();
+			                repaint();
+			                TimeUnit.MILLISECONDS.sleep(00);
+		                }
+        			}
+        			catch (InterruptedException e1) {
+						e1.printStackTrace();
+        			}
+        		}
+        	}
+        }
+        public class RunImplmob4 implements Runnable {
+        	private int xDelta = 0;
+        	private int yDelta = 0;
+        	
+        	public RunImplmob4 () {
+        	}
+        	
+        	public void run() {
+        		
+        		while(move4) {
+        			try {
+		        		int indexm4 = getComponentZOrder(m4), indm4 = getComponentZOrder(m4);
+		        		xDelta = (int)( Math.random()*3 ) - 1;
+		        		yDelta = (int)( Math.random()*3 ) - 1;
+		                indexm4 += xDelta;
+		                indexm4 += (yDelta * 20);
+		                if ((indexm4-(indexm4%20))/20 < 0 || (indexm4-(indexm4%20))/20 > 11) {
+		                	indexm4 -= (yDelta * 20);
+		                } else if (indexm4%20 < 0 || indexm4%20 > 19) {
+		                	indexm4 -= xDelta;
+		                }
+		                if (map[(indexm4-(indexm4%20))/20][indexm4%20] == 'N')
+		                {
+		                	map[(indexm4-(indexm4%20))/20][indexm4%20] = 'L';
+		                	map[(indm4 -(indm4%20))/20][indm4%20] = 'N';
+		                	setComponentZOrder(getComponent(indexm4), indm4);
+			                setComponentZOrder(m4, indexm4);
+			                revalidate();
+			                repaint();
+			                TimeUnit.MILLISECONDS.sleep(00);
+		                }
+        			}
+        			catch (InterruptedException e1) {
+						e1.printStackTrace();
+        			}
+        		}
+        	}
+        }
+        public class RunImplball implements Runnable {
+        	
+        	public void run() {
+        		
+        		f1.setIcon(new ImageIcon(new ImageIcon("sprite/Fireball.gif").getImage().getScaledInstance(64, 64, Image.SCALE_DEFAULT)));
+        		int index = getComponentZOrder(l), index2 = getComponentZOrder(l);
+        		index2 -= oldxDelta;
+                index2 -= (oldyDelta * 20);
+                boolean rb = false;
+        		while(!br) {
+        			
+        			index -= oldxDelta;
+                    index -= (oldyDelta * 20);
+        			try {
+		                if (map[(index-(index%20))/20][index%20] == 'N' && !rb)
+		                {
+			                map[(index-(index%20))/20][index%20] = 'B';
+			                map[(index2-(index2%20))/20][index2%20] = 'N';
+			                setComponentZOrder(getComponent(index), index2);
+			                setComponentZOrder(f1, index);
+			                revalidate();
+			                repaint();
+			                TimeUnit.MILLISECONDS.sleep(200);
+		                }
+		                
+		                else if (map[(((index+oldxDelta*2)+(oldyDelta*20)*2)-(((index+oldxDelta*2)+(oldyDelta*20)*2)%20))/20][((index+oldxDelta*2)+(oldyDelta*20)*2)%20] == 'N') {
+		                	rb = true;
+		                	index += oldxDelta*2;
+		                    index += (oldyDelta * 20)*2;
+		                    map[(index-(index%20))/20][index%20] = 'B';
+			                map[(index2-(index2%20))/20][index2%20] = 'N';
+			                remove(index2);
+			                add(f1, index);
+			                revalidate();
+			                repaint();
+			                TimeUnit.MILLISECONDS.sleep(200);
+		                }
+		                else if (map[(index-(index%20))/20][index%20] == 'A' || map[(((index+oldxDelta*2)+(oldyDelta*20)*2)-(((index+oldxDelta*2)+(oldyDelta*20)*2)%20))/20][((index+oldxDelta*2)+(oldyDelta*20)*2)%20] == 'A') {
+		                	JLabel empt = new JLabel();
+                            empt.setIcon(new ImageIcon(new ImageIcon("sprite/empty.png").getImage().getScaledInstance(64, 64, Image.SCALE_DEFAULT)));
+		                	map[(index2-(index2%20))/20][index2%20] = 'N';
+		                	remove(index2);
+		                	add(empt, index2);
+		                	revalidate();
+			                repaint();
+		                	br = true;
+		                }
+		                /*else if (map[(index-(index%20))/20][index%20] == 'I') {
+			                move1 = false;
+		                	map[(index-(index%20))/20][index%20] = 'B';
+			                map[(index2-(index2%20))/20][index2%20] = 'N';
+			                remove(index2);
+			                add(f1, index);
+			                revalidate();
+			                repaint();
+			                TimeUnit.MILLISECONDS.sleep(200);
+		                }
+		                else if (map[(((index+oldxDelta*2)+(oldyDelta*20)*2)-(((index+oldxDelta*2)+(oldyDelta*20)*2)%20))/20][((index+oldxDelta*2)+(oldyDelta*20)*2)%20] == 'I') {
+		                	move1 = false;
+		                	rb = true;
+		                	index += oldxDelta*2;
+		                    index += (oldyDelta * 20)*2;
+		                    map[(index-(index%20))/20][index%20] = 'B';
+			                map[(index2-(index2%20))/20][index2%20] = 'N';
+			                remove(index2);
+			                add(f1, index);
+			                revalidate();
+			                repaint();
+			                TimeUnit.MILLISECONDS.sleep(200);
+		                }
+		                else if (map[(index-(index%20))/20][index%20] == 'J') {
+			                move2 = false;
+		                	map[(index-(index%20))/20][index%20] = 'B';
+			                map[(index2-(index2%20))/20][index2%20] = 'N';
+			                remove(index2);
+			                add(f1, index);
+			                revalidate();
+			                repaint();
+			                TimeUnit.MILLISECONDS.sleep(200);
+		                }
+		                else if (map[(((index+oldxDelta*2)+(oldyDelta*20)*2)-(((index+oldxDelta*2)+(oldyDelta*20)*2)%20))/20][((index+oldxDelta*2)+(oldyDelta*20)*2)%20] == 'J') {
+		                	move2 = false;
+		                	rb = true;
+		                	index += oldxDelta*2;
+		                    index += (oldyDelta * 20)*2;
+		                    map[(index-(index%20))/20][index%20] = 'B';
+			                map[(index2-(index2%20))/20][index2%20] = 'N';
+			                remove(index2);
+			                add(f1, index);
+			                revalidate();
+			                repaint();
+			                TimeUnit.MILLISECONDS.sleep(200);
+		                }
+		                else if (map[(index-(index%20))/20][index%20] == 'K') {
+			                move3 = false;
+		                	map[(index-(index%20))/20][index%20] = 'B';
+			                map[(index2-(index2%20))/20][index2%20] = 'N';
+			                remove(index2);
+			                add(f1, index);
+			                revalidate();
+			                repaint();
+			                TimeUnit.MILLISECONDS.sleep(200);
+		                }
+		                else if (map[(((index+oldxDelta*2)+(oldyDelta*20)*2)-(((index+oldxDelta*2)+(oldyDelta*20)*2)%20))/20][((index+oldxDelta*2)+(oldyDelta*20)*2)%20] == 'K') {
+			                move3 = false;
+		                	rb = true;
+		                	index += oldxDelta*2;
+		                    index += (oldyDelta * 20)*2;
+		                    map[(index-(index%20))/20][index%20] = 'B';
+			                map[(index2-(index2%20))/20][index2%20] = 'N';
+			                remove(index2);
+			                add(f1, index);
+			                revalidate();
+			                repaint();
+			                TimeUnit.MILLISECONDS.sleep(200);
+		                }
+		                else if (map[(index-(index%20))/20][index%20] == 'L') {
+			                move4 = false;
+		                	map[(index-(index%20))/20][index%20] = 'B';
+			                map[(index2-(index2%20))/20][index2%20] = 'N';
+			                remove(index2);
+			                add(f1, index);
+			                revalidate();
+			                repaint();
+			                TimeUnit.MILLISECONDS.sleep(200);
+		                }
+		                else if (map[(((index+oldxDelta*2)+(oldyDelta*20)*2)-(((index+oldxDelta*2)+(oldyDelta*20)*2)%20))/20][((index+oldxDelta*2)+(oldyDelta*20)*2)%20] == 'L') {
+		                	move4 = false;
+		                	rb = true;
+		                	index += oldxDelta*2;
+		                    index += (oldyDelta * 20)*2;
+		                    map[(index-(index%20))/20][index%20] = 'B';
+			                map[(index2-(index2%20))/20][index2%20] = 'N';
+			                remove(index2);
+			                add(f1, index);
+			                revalidate();
+			                repaint();
+			                TimeUnit.MILLISECONDS.sleep(200);
+		                }*/
+		                else {
+		                	rb = false;
+		                }
+        			}
+        			catch (InterruptedException e1) {
+						e1.printStackTrace();
+        			}
+        			index2 = index;
+        		}
         	}
         }
     }
