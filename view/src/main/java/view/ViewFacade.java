@@ -7,6 +7,8 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.util.concurrent.TimeUnit;
+
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ActionMap;
@@ -47,7 +49,7 @@ public class ViewFacade extends JFrame implements IView {
                 frame.add(new printMap(level));
                 frame.pack();
                 frame.setLocationRelativeTo(null);
-                frame.setResizable(true);
+                frame.setResizable(false);
                 frame.setVisible(true);
             }
         });
@@ -58,7 +60,10 @@ public class ViewFacade extends JFrame implements IView {
         /**
 		 * 
 		 */
-		private static final long serialVersionUID = 1L;
+		private static final long serialVersionUID = 8681057499389021710L;
+		/**
+		 * 
+		 */
 		private JLabel l = new JLabel();
 		private int points = 0;
 		private char map[][] = { {'N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N'},
@@ -215,10 +220,10 @@ public class ViewFacade extends JFrame implements IView {
                 add(empt);
             }
 
-            addKeyBinding("left", KeyEvent.VK_Q, new MoveAction(-1, 0, level));
-            addKeyBinding("right", KeyEvent.VK_D, new MoveAction(1, 0, level));
-            addKeyBinding("up", KeyEvent.VK_Z, new MoveAction(0, -1, level));
-            addKeyBinding("down", KeyEvent.VK_S, new MoveAction(0, 1, level));
+            addKeyBinding("left", KeyEvent.VK_Q, new MoveAction(-1, 0));
+            addKeyBinding("right", KeyEvent.VK_D, new MoveAction(1, 0));
+            addKeyBinding("up", KeyEvent.VK_Z, new MoveAction(0, -1));
+            addKeyBinding("down", KeyEvent.VK_S, new MoveAction(0, 1));
         }
 
         protected void addKeyBinding(String name, int keyCode, Action action) {
@@ -230,35 +235,97 @@ public class ViewFacade extends JFrame implements IView {
         }
 
         public class MoveAction extends AbstractAction {
-            /**
+
+			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 1L;
+			private static final long serialVersionUID = -5280474716180691317L;
 			private final int xDelta, yDelta;
-			private final String level;
 			
-            public MoveAction(int xDelta, int yDelta, String level) {
+            public MoveAction(int xDelta, int yDelta) {
                 this.xDelta = xDelta;
                 this.yDelta = yDelta;
-                this.level = level;
             }
 
             @Override
             public void actionPerformed(ActionEvent e) {
             	
-                int index = getComponentZOrder(l), index2 = getComponentZOrder(l);
+                Thread t = new Thread(new RunImpl(xDelta, yDelta));
+                t.start();
+            	
+            }
+
+        }
+        public class RunImpl implements Runnable {
+        	private int xDelta;
+        	private int yDelta;
+        	
+        	public RunImpl (int xDelta, int yDelta) {
+        		this.xDelta = xDelta;
+        		this.yDelta = yDelta;
+        	}
+        	
+        	public void run() {
+        		
+        		int index = getComponentZOrder(l), index2 = getComponentZOrder(l);
                 index += xDelta;
                 index += (yDelta * 20);
-                if (index < 0) {
-                    index = 0;
-                } else if (index >= getComponentCount()) {
-                    index = getComponentCount() - 1;
+                if ((index-(index%20))/20 < 0 || (index-(index%20))/20 > 11) {
+                    index -= (yDelta * 20);
+                } else if (index%20 < 0 || index%20 > 19) {
+                	index -= xDelta;
                 }
-                if (map[(index-(index%20))/20][index%20] == 'N') {
-	                setComponentZOrder(getComponent(index), index2);
-	                map[(index2 -(index2%20))/20][index2%20] = 'N';
-	                setComponentZOrder(l, index);
-	                map[(index-(index%20))/20][index%20] = 'A';
+                
+                if (map[(index-(index%20))/20][index%20] == 'N')
+                {
+	                
+	                if (xDelta == -1 && yDelta == 0) {
+                        l.setIcon(new ImageIcon(new ImageIcon("sprite/lorann_l.png").getImage().getScaledInstance(64, 64, Image.SCALE_DEFAULT)));
+                		try {
+                			
+                			revalidate();
+			                repaint();
+			                setComponentZOrder(getComponent(index), index2);
+			                map[(index2 -(index2%20))/20][index2%20] = 'N';
+			                setComponentZOrder(l, index);
+			                map[(index-(index%20))/20][index%20] = 'A';
+			                revalidate();
+			                repaint();
+			                TimeUnit.MILLISECONDS.sleep(400);
+			                l.setIcon(new ImageIcon(new ImageIcon("sprite/Lorann.gif").getImage().getScaledInstance(64, 64, Image.SCALE_DEFAULT)));
+							revalidate();
+			                repaint();
+			                
+						} catch (InterruptedException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+                		
+                	}
+                	else if (xDelta == 1 && yDelta == 0) {
+                		setComponentZOrder(getComponent(index), index2);
+    	                map[(index2 -(index2%20))/20][index2%20] = 'N';
+    	                setComponentZOrder(l, index);
+    	                map[(index-(index%20))/20][index%20] = 'A';
+    	                revalidate();
+    	                repaint();
+                	}
+                	else if (xDelta == 0 && yDelta == -1) {
+                		setComponentZOrder(getComponent(index), index2);
+    	                map[(index2 -(index2%20))/20][index2%20] = 'N';
+    	                setComponentZOrder(l, index);
+    	                map[(index-(index%20))/20][index%20] = 'A';
+    	                revalidate();
+    	                repaint();
+                	}
+                	else if (xDelta == 0 && yDelta == 1) {
+                		setComponentZOrder(getComponent(index), index2);
+    	                map[(index2 -(index2%20))/20][index2%20] = 'N';
+    	                setComponentZOrder(l, index);
+    	                map[(index-(index%20))/20][index%20] = 'A';
+    	                revalidate();
+    	                repaint();
+                	}
                 }
                 else if (map[(index-(index%20))/20][index%20] == 'C') {
                 	JLabel empt = new JLabel();
@@ -269,7 +336,7 @@ public class ViewFacade extends JFrame implements IView {
                     go.setIcon(new ImageIcon(new ImageIcon("sprite/gate_open.png").getImage().getScaledInstance(64, 64, Image.SCALE_DEFAULT)));
 	                for (int y = 0; y < 12; y++) {
 	                	for (int x = 0; x < 20; x++) {
-	                		if (level.charAt(x+y*20) == 'D') {
+	                		if (map[y][x] == 'D') {
 	                			remove(x+y*20);
 	                			add(go, (x+y*20));
 	                		}
@@ -278,6 +345,8 @@ public class ViewFacade extends JFrame implements IView {
 	                map[(index2 -(index2%20))/20][index2%20] = 'N';
 	                setComponentZOrder(l, index);
 	                map[(index-(index%20))/20][index%20] = 'A';
+	                revalidate();
+	                repaint();
                 }
                 else if (map[(index-(index%20))/20][index%20] == 'M') {
                 	points += 65;
@@ -294,13 +363,10 @@ public class ViewFacade extends JFrame implements IView {
 	                map[(index2 -(index2%20))/20][index2%20] = 'N';
 	                setComponentZOrder(l, index);
 	                map[(index-(index%20))/20][index%20] = 'A';
+	                revalidate();
+	                repaint();
                 }
-                
-                revalidate();
-                repaint();
-            }
-
+        	}
         }
-
     }
 }

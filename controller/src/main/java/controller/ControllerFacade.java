@@ -68,16 +68,16 @@ public class ControllerFacade implements IController {
     	
     	this.getView().ViewFacade("FGGGGGGGGGGGGGGGGGGF"
 								+ "HNANNNNNNNNNNNNNNNIH"
-								+ "HGGGGGGFNFGGGGGGFNNH"
+								+ "FGGGGGGFNFGGGGGGFNNH"
 								+ "HNNNNNNHCHNNNNNNHNNH"
 								+ "FGGGGGGFGFGGGGGGFNMH"
 								+ "HMNNNNNNNNNNNNNNNNNH"
-								+ "FGGGGGGGGFNNNNNNNNNH"
+								+ "FGGGGGGFGFNNNNNNNNNH"
 								+ "HNNKNNNHNNNNNNNJNNNH"
 								+ "HNNNNFNHNNNNNNNNNNNH"
 								+ "HNNNNHNFGNFGGFNNNNNH"
 								+ "HMNNNHNNNNHNNNNLNNNH"
-								+ "FGGGGGGGGGFDNFGGGGGF");
+								+ "FGGGGFGGGGFDNFGGGGGF");
     	
     }
 
