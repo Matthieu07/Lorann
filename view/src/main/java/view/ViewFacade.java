@@ -27,16 +27,14 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class ViewFacade extends JFrame implements IView {
 
-	/**
-	 * 
-	 */
+	/** the serialVersionUID. */
 	private static final long serialVersionUID = -5606686993021480646L;
 
 	/**
-	 * ViewFacade.
+	 * ViewFacade
 	 * 
 	 * @param level.
-	 * 
+	 * 				the level.
 	 */
 	public void ViewFacade(String level) {
         EventQueue.invokeLater(new Runnable() {
@@ -59,10 +57,17 @@ public class ViewFacade extends JFrame implements IView {
         });
     }
 
+	/**
+	 * <h2>The Class printMap provides a print of  map.</h2>
+	 * @author chris
+	 *
+	 */
     public class printMap extends JPanel {
 
+        /** the serialVersionUID. */
 		private static final long serialVersionUID = 1L;
 		private JLabel l = new JLabel();
+		 /** the points. */
 		private int points = 0;
 		private char map[][] = { {'N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N'},
 								 {'N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N'},
@@ -77,6 +82,10 @@ public class ViewFacade extends JFrame implements IView {
 								 {'N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N'},
 								 {'N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N','N'} };
 
+		/**
+		 * The constructor printMap
+		 * @param level
+		 */
         public printMap(String level) {
         	setBackground(Color.black);
             setLayout(new GridLayout(13, 20));
@@ -225,11 +234,9 @@ public class ViewFacade extends JFrame implements IView {
         }
 
         /**
-         * add keyBinding.
+         * addKeyBinding.
          * @param name
-         * 
          * @param keyCode
-         * 
          * @param action
          */
         protected void addKeyBinding(String name, int keyCode, Action action) {
@@ -240,14 +247,25 @@ public class ViewFacade extends JFrame implements IView {
             actionMap.put(name, action);
         }
 
+        /**
+         * <h3>The Class MoveAction provides the movement of an action.</h3>
+         * @author chris
+         *
+         */
         public class MoveAction extends AbstractAction {
-            /**
-			 * 
-			 */
+        	 /** the serialVersionUID. */
 			private static final long serialVersionUID = 1L;
+			 /** the xDelta and yDelta. */
 			private final int xDelta, yDelta;
+			 /** the level. */
 			private final String level;
 			
+			/**
+			 * the constructor MoveAction			 
+			 * @param xDelta
+			 * @param yDelta
+			 * @param level
+			 */
             public MoveAction(int xDelta, int yDelta, String level) {
                 this.xDelta = xDelta;
                 this.yDelta = yDelta;
