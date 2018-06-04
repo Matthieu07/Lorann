@@ -227,15 +227,15 @@ public class ViewFacade extends JFrame implements IView {
                 add(empt);
             }
 
-            addKeyBinding("left", KeyEvent.VK_Q, new MoveAction(-1, 0));
-            addKeyBinding("right", KeyEvent.VK_D, new MoveAction(1, 0));
-            addKeyBinding("up", KeyEvent.VK_Z, new MoveAction(0, -1));
-            addKeyBinding("down", KeyEvent.VK_X, new MoveAction(0, 1));
+            addKeyBinding("left", KeyEvent.VK_NUMPAD4, new MoveAction(-1, 0));
+            addKeyBinding("right", KeyEvent.VK_NUMPAD6, new MoveAction(1, 0));
+            addKeyBinding("up", KeyEvent.VK_NUMPAD8, new MoveAction(0, -1));
+            addKeyBinding("down", KeyEvent.VK_NUMPAD2, new MoveAction(0, 1));
             addKeyBinding("space", KeyEvent.VK_SPACE, new MoveAction(2, 2));
-            addKeyBinding("up_left", KeyEvent.VK_A, new MoveAction(-1, -1));
-            addKeyBinding("up_right", KeyEvent.VK_E, new MoveAction(1, -1));
-            addKeyBinding("down_right", KeyEvent.VK_C, new MoveAction(1, 1));
-            addKeyBinding("down_left", KeyEvent.VK_W, new MoveAction(-1, 1));
+            addKeyBinding("up_left", KeyEvent.VK_NUMPAD7, new MoveAction(-1, -1));
+            addKeyBinding("up_right", KeyEvent.VK_NUMPAD9, new MoveAction(1, -1));
+            addKeyBinding("down_right", KeyEvent.VK_NUMPAD3, new MoveAction(1, 1));
+            addKeyBinding("down_left", KeyEvent.VK_NUMPAD1, new MoveAction(-1, 1));
         }
 
         protected void addKeyBinding(String name, int keyCode, Action action) {
@@ -862,4 +862,5 @@ public class ViewFacade extends JFrame implements IView {
         	}
         }
     }
+
 }

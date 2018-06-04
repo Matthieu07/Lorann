@@ -45,7 +45,7 @@ public class ControllerFacade implements IController  {
      *             the SQL exception
      */
     public void start() throws SQLException {
-    	this.getView().printMap("NNFFGGGGGGGGGGGGGGGF"
+    	this.getView().ViewFacade("NNFFGGGGGGGGGGGGGGGF"
 				                + "NFFNNNNNNNNNNNNNNANH"
 				                + "FFNNNNNNNNNNNNNNNNNH"
 				                + "FNDNFGGGGGGGFMFNFGGF"
@@ -72,12 +72,12 @@ public class ControllerFacade implements IController  {
     
 	private IModel getModel() {
 		// TODO Auto-generated method stub
-		return null;
+		return model;
 	}
 
 	private IView getView(){
 		// TODO Auto-generated method stub
-		return null;
+		return view;
 	}
 
 		/*getTypeBlock();

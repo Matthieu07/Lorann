@@ -16,6 +16,6 @@ public interface IView {
      */
     //void displayMessage(String message);
 
-	void printMap(String string);
+	void ViewFacade(String string);
 
 }
