@@ -85,6 +85,7 @@ public class ViewFacade extends JFrame implements IView {
 		/**
 		 * The constructor printMap
 		 * @param level
+		 * 				the level.
 		 */
         public printMap(String level) {
         	setBackground(Color.black);
@@ -255,9 +256,9 @@ public class ViewFacade extends JFrame implements IView {
         public class MoveAction extends AbstractAction {
         	 /** the serialVersionUID. */
 			private static final long serialVersionUID = 1L;
-			 /** the xDelta and yDelta. */
+			 /** the xDelta and yDelta are the coordinates in a map. */
 			private final int xDelta, yDelta;
-			 /** the level. */
+			 /** the level of the map */
 			private final String level;
 			
 			/**
