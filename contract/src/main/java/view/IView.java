@@ -15,4 +15,12 @@ public interface IView {
      *            the level
      */
     void ViewFacade(String level);
+
+    /**
+     * printMap.
+     * 
+     * @param string
+     * 
+     */
+	void printMap(String string);
 }

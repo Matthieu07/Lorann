@@ -332,4 +332,10 @@ public class ViewFacade extends JFrame implements IView {
         }
 
     }
+
+	@Override
+	public void printMap(String string) {
+		// TODO Auto-generated method stub
+		
+	}
 }
