@@ -290,7 +290,7 @@ public class ViewFacade extends JFrame implements IView {
                 	Thread m1 = new Thread(new RunImplmob1());
                 	m1.start();
                 }
-                if (!move2) {
+                /*if (!move2) {
                 	try {
 						TimeUnit.MILLISECONDS.sleep(1);
 					} catch (InterruptedException e1) {
@@ -322,7 +322,7 @@ public class ViewFacade extends JFrame implements IView {
                 	move4 = true;
                 	Thread m4 = new Thread(new RunImplmob4());
                 	m4.start();
-                }
+                }*/
             }
 
         }
@@ -505,7 +505,7 @@ public class ViewFacade extends JFrame implements IView {
 		                revalidate();
 		                repaint();
 		                try {
-							TimeUnit.MILLISECONDS.sleep(50);
+							TimeUnit.MILLISECONDS.sleep(0);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -541,7 +541,7 @@ public class ViewFacade extends JFrame implements IView {
 		                revalidate();
 		                repaint();
 		                try {
-							TimeUnit.MILLISECONDS.sleep(50);
+							TimeUnit.MILLISECONDS.sleep(20);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -577,7 +577,7 @@ public class ViewFacade extends JFrame implements IView {
 		                revalidate();
 		                repaint();
 		                try {
-							TimeUnit.MILLISECONDS.sleep(50);
+							TimeUnit.MILLISECONDS.sleep(20);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -613,7 +613,7 @@ public class ViewFacade extends JFrame implements IView {
 		                revalidate();
 		                repaint();
 		                try {
-							TimeUnit.MILLISECONDS.sleep(50);
+							TimeUnit.MILLISECONDS.sleep(20);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
