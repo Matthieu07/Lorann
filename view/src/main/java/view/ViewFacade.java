@@ -259,9 +259,19 @@ public class ViewFacade extends JFrame implements IView {
             public void actionPerformed(ActionEvent e) {
             	
                 if (xDelta == 2 && yDelta == 2 && br) {
-                	br = false;
+                	/*br = false;
                 	Thread b = new Thread(new RunImplball());
-                    b.start();
+                    b.start();*/
+                	for (int y = 0; y < 12; y++)
+                    {
+                		String test = "";
+                		for (int x = 0; x < 20; x++)
+                        {
+                        	test += map[y][x];
+                        }
+                		System.out.println(test);
+                    }
+                	System.out.println("Fin");
                 }
                 else if (xDelta != 2 && yDelta != 2) {
                 	Thread t = new Thread(new RunImpl(xDelta, yDelta));
@@ -270,21 +280,45 @@ public class ViewFacade extends JFrame implements IView {
                     oldyDelta = yDelta;
                 }
                 if (!move1) {
+                	try {
+						TimeUnit.MILLISECONDS.sleep(1);
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
                 	move1 = true;
                 	Thread m1 = new Thread(new RunImplmob1());
                 	m1.start();
                 }
                 if (!move2) {
+                	try {
+						TimeUnit.MILLISECONDS.sleep(1);
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
                 	move2 = true;
                 	Thread m2 = new Thread(new RunImplmob2());
                 	m2.start();
                 }
                 if (!move3) {
+                	try {
+						TimeUnit.MILLISECONDS.sleep(1);
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
                 	move3 = true;
                 	Thread m3 = new Thread(new RunImplmob3());
                 	m3.start();
                 }
                 if (!move4) {
+                	try {
+						TimeUnit.MILLISECONDS.sleep(1);
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
                 	move4 = true;
                 	Thread m4 = new Thread(new RunImplmob4());
                 	m4.start();
@@ -444,8 +478,6 @@ public class ViewFacade extends JFrame implements IView {
         	}
         }
         public class RunImplmob1 implements Runnable {
-        	private int xDelta = 0;
-        	private int yDelta = 0;
         	
         	public RunImplmob1 () {
         	}
@@ -453,37 +485,35 @@ public class ViewFacade extends JFrame implements IView {
         	public void run() {
         		
         		while(move1) {
-        			try {
-		        		int indexm1 = getComponentZOrder(m1), indm1 = getComponentZOrder(m1);
-		        		xDelta = (int)( Math.random()*3 ) - 1;
-		        		yDelta = (int)( Math.random()*3 ) - 1;
-		                indexm1 += xDelta;
-		                indexm1 += (yDelta * 20);
-		                if ((indexm1-(indexm1%20))/20 < 0 || (indexm1-(indexm1%20))/20 > 11) {
-		                	indexm1 -= (yDelta * 20);
-		                } else if (indexm1%20 < 0 || indexm1%20 > 19) {
-		                	indexm1 -= xDelta;
-		                }
-		                if (map[(indexm1-(indexm1%20))/20][indexm1%20] == 'N')
-		                {
-			                map[(indexm1-(indexm1%20))/20][indexm1%20] = 'I';
-			                map[(indm1 -(indm1%20))/20][indm1%20] = 'N';
-			                setComponentZOrder(getComponent(indexm1), indm1);
-			                setComponentZOrder(m1, indexm1);
-			                revalidate();
-			                repaint();
-			                TimeUnit.MILLISECONDS.sleep(00);
-		                }
-        			}
-        			catch (InterruptedException e1) {
-						e1.printStackTrace();
-        			}
+	        		int indexm1 = getComponentZOrder(m1), indm1 = getComponentZOrder(m1);
+	        		int xDelta = (int)( Math.random()*3 ) - 1;
+	        		int yDelta = (int)( Math.random()*3 ) - 1;
+	                indexm1 += xDelta;
+	                indexm1 += (yDelta * 20);
+	                if ((indexm1-(indexm1%20))/20 < 0 || (indexm1-(indexm1%20))/20 > 11) {
+	                	indexm1 -= (yDelta * 20);
+	                }
+	                if (indexm1%20 < 0 || indexm1%20 > 19) {
+	                	indexm1 -= xDelta;
+	                }
+	                if (map[(indexm1-(indexm1%20))/20][indexm1%20] == 'N')
+	                {
+		                map[(indexm1-(indexm1%20))/20][indexm1%20] = 'I';
+		                map[(indm1 -(indm1%20))/20][indm1%20] = 'N';
+		                setComponentZOrder(getComponent(indexm1), indm1);
+		                setComponentZOrder(m1, indexm1);
+		                revalidate();
+		                repaint();
+		                try {
+							TimeUnit.MILLISECONDS.sleep(50);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+	                }
         		}
         	}
         }
         public class RunImplmob2 implements Runnable {
-        	private int xDelta = 0;
-        	private int yDelta = 0;
         	
         	public RunImplmob2 () {
         	}
@@ -491,37 +521,35 @@ public class ViewFacade extends JFrame implements IView {
         	public void run() {
         		
         		while(move2) {
-        			try {
-		        		int indexm2 = getComponentZOrder(m2), indm2 = getComponentZOrder(m2);
-		        		xDelta = (int)( Math.random()*3 ) - 1;
-		        		yDelta = (int)( Math.random()*3 ) - 1;
-		                indexm2 += xDelta;
-		                indexm2 += (yDelta * 20);
-		                if ((indexm2-(indexm2%20))/20 < 0 || (indexm2-(indexm2%20))/20 > 11) {
-		                	indexm2 -= (yDelta * 20);
-		                } else if (indexm2%20 < 0 || indexm2%20 > 19) {
-		                	indexm2 -= xDelta;
-		                }
-		                if (map[(indexm2-(indexm2%20))/20][indexm2%20] == 'N')
-		                {
-			                map[(indexm2-(indexm2%20))/20][indexm2%20] = 'J';
-			                map[(indm2 -(indm2%20))/20][indm2%20] = 'N';
-			                setComponentZOrder(getComponent(indexm2), indm2);
-			                setComponentZOrder(m2, indexm2);
-			                revalidate();
-			                repaint();
-			                TimeUnit.MILLISECONDS.sleep(00);
-		                }
-        			}
-        			catch (InterruptedException e1) {
-						e1.printStackTrace();
-        			}
+	        		int indexm2 = getComponentZOrder(m2), indm2 = getComponentZOrder(m2);
+	        		int xDelta = (int)( Math.random()*3 ) - 1;
+	        		int yDelta = (int)( Math.random()*3 ) - 1;
+	                indexm2 += xDelta;
+	                indexm2 += (yDelta * 20);
+	                if ((indexm2-(indexm2%20))/20 < 0 || (indexm2-(indexm2%20))/20 > 11) {
+	                	indexm2 -= (yDelta * 20);
+	                }
+	                if (indexm2%20 < 0 || indexm2%20 > 19) {
+	                	indexm2 -= xDelta;
+	                }
+	                if (map[(indexm2-(indexm2%20))/20][indexm2%20] == 'N')
+	                {
+		                map[(indexm2-(indexm2%20))/20][indexm2%20] = 'J';
+		                map[(indm2 -(indm2%20))/20][indm2%20] = 'N';
+		                setComponentZOrder(getComponent(indexm2), indm2);
+		                setComponentZOrder(m2, indexm2);
+		                revalidate();
+		                repaint();
+		                try {
+							TimeUnit.MILLISECONDS.sleep(50);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+	                }
         		}
         	}
         }
         public class RunImplmob3 implements Runnable {
-        	private int xDelta = 0;
-        	private int yDelta = 0;
         	
         	public RunImplmob3 () {
         	}
@@ -529,37 +557,35 @@ public class ViewFacade extends JFrame implements IView {
         	public void run() {
         		
         		while(move3) {
-        			try {
-		        		int indexm3 = getComponentZOrder(m3), indm3 = getComponentZOrder(m3);
-		        		xDelta = (int)( Math.random()*3 ) - 1;
-		        		yDelta = (int)( Math.random()*3 ) - 1;
-		                indexm3 += xDelta;
-		                indexm3 += (yDelta * 20);
-		                if ((indexm3-(indexm3%20))/20 < 0 || (indexm3-(indexm3%20))/20 > 11) {
-		                	indexm3 -= (yDelta * 20);
-		                } else if (indexm3%20 < 0 || indexm3%20 > 19) {
-		                	indexm3 -= xDelta;
-		                }
-		                if (map[(indexm3-(indexm3%20))/20][indexm3%20] == 'N')
-		                {
-			                map[(indexm3-(indexm3%20))/20][indexm3%20] = 'K';
-			                map[(indm3 -(indm3%20))/20][indm3%20] = 'N';
-			                setComponentZOrder(getComponent(indexm3), indm3);
-			                setComponentZOrder(m3, indexm3);
-			                revalidate();
-			                repaint();
-			                TimeUnit.MILLISECONDS.sleep(00);
-		                }
-        			}
-        			catch (InterruptedException e1) {
-						e1.printStackTrace();
-        			}
+	        		int indexm3 = getComponentZOrder(m3), indm3 = getComponentZOrder(m3);
+	        		int xDelta = (int)( Math.random()*3 ) - 1;
+	        		int yDelta = (int)( Math.random()*3 ) - 1;
+	                indexm3 += xDelta;
+	                indexm3 += (yDelta * 20);
+	                if ((indexm3-(indexm3%20))/20 < 0 || (indexm3-(indexm3%20))/20 > 11) {
+	                	indexm3 -= (yDelta * 20);
+	                }
+	                if (indexm3%20 < 0 || indexm3%20 > 19) {
+	                	indexm3 -= xDelta;
+	                }
+	                if (map[(indexm3-(indexm3%20))/20][indexm3%20] == 'N')
+	                {
+		                map[(indexm3-(indexm3%20))/20][indexm3%20] = 'K';
+		                map[(indm3 -(indm3%20))/20][indm3%20] = 'N';
+		                setComponentZOrder(getComponent(indexm3), indm3);
+		                setComponentZOrder(m3, indexm3);
+		                revalidate();
+		                repaint();
+		                try {
+							TimeUnit.MILLISECONDS.sleep(50);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+	                }
         		}
         	}
         }
         public class RunImplmob4 implements Runnable {
-        	private int xDelta = 0;
-        	private int yDelta = 0;
         	
         	public RunImplmob4 () {
         	}
@@ -567,31 +593,31 @@ public class ViewFacade extends JFrame implements IView {
         	public void run() {
         		
         		while(move4) {
-        			try {
-		        		int indexm4 = getComponentZOrder(m4), indm4 = getComponentZOrder(m4);
-		        		xDelta = (int)( Math.random()*3 ) - 1;
-		        		yDelta = (int)( Math.random()*3 ) - 1;
-		                indexm4 += xDelta;
-		                indexm4 += (yDelta * 20);
-		                if ((indexm4-(indexm4%20))/20 < 0 || (indexm4-(indexm4%20))/20 > 11) {
-		                	indexm4 -= (yDelta * 20);
-		                } else if (indexm4%20 < 0 || indexm4%20 > 19) {
-		                	indexm4 -= xDelta;
-		                }
-		                if (map[(indexm4-(indexm4%20))/20][indexm4%20] == 'N')
-		                {
-		                	map[(indexm4-(indexm4%20))/20][indexm4%20] = 'L';
-		                	map[(indm4 -(indm4%20))/20][indm4%20] = 'N';
-		                	setComponentZOrder(getComponent(indexm4), indm4);
-			                setComponentZOrder(m4, indexm4);
-			                revalidate();
-			                repaint();
-			                TimeUnit.MILLISECONDS.sleep(00);
-		                }
-        			}
-        			catch (InterruptedException e1) {
-						e1.printStackTrace();
-        			}
+	        		int indexm4 = getComponentZOrder(m4), indm4 = getComponentZOrder(m4);
+	        		int xDelta = (int)( Math.random()*3 ) - 1;
+	        		int yDelta = (int)( Math.random()*3 ) - 1;
+	                indexm4 += xDelta;
+	                indexm4 += (yDelta * 20);
+	                if ((indexm4-(indexm4%20))/20 < 0 || (indexm4-(indexm4%20))/20 > 11) {
+	                	indexm4 -= (yDelta * 20);
+	                }
+	                if (indexm4%20 < 0 || indexm4%20 > 19) {
+	                	indexm4 -= xDelta;
+	                }
+	                if (map[(indexm4-(indexm4%20))/20][indexm4%20] == 'N')
+	                {
+	                	map[(indexm4-(indexm4%20))/20][indexm4%20] = 'L';
+	                	map[(indm4 -(indm4%20))/20][indm4%20] = 'N';
+	                	setComponentZOrder(getComponent(indexm4), indm4);
+		                setComponentZOrder(m4, indexm4);
+		                revalidate();
+		                repaint();
+		                try {
+							TimeUnit.MILLISECONDS.sleep(50);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+	                }
         		}
         	}
         }
