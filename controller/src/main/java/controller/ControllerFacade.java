@@ -45,7 +45,7 @@ public class ControllerFacade implements IController  {
      *             the SQL exception
      */
     public void start() throws SQLException {
-    	this.getView().ViewFacade(this.getModel().getMapById(3));
+    	this.getView().ViewFacade(this.getModel().getMapById(1));
         
     }
     
