@@ -67,8 +67,4 @@ public class ControllerFacade implements IController  {
 		return view;
 	}
 
-		/*getTypeBlock();
-		setLorannPos();
-		getLorannPos();*/
-
 }
