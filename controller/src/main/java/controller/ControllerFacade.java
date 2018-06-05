@@ -45,29 +45,8 @@ public class ControllerFacade implements IController  {
      *             the SQL exception
      */
     public void start() throws SQLException {
-    	this.getView().printMap("NNFFGGGGGGGGGGGGGGGF"
-				                + "NFFNNNNNNNNNNNNNNANH"
-				                + "FFNNNNNNNNNNNNNNNNNH"
-				                + "FNDNFGGGGGGGFMFNFGGF"
-				                + "HNNNHNNNNJNNNNHNNNNH"
-				                + "HNNNHNFGGGGGGGFGGFNH"
-				                + "HNNNHNNNNLNNNMHNNNNH"
-				                + "HNNNFGGGGGGGFNFNFGGF"
-				                + "HNNNHNNNNKNNNMHNNNNH"
-				                + "FGFNHNFGGGGGGFFGGFNH"
-				                + "HCNNHNNNNINNMHMNMNNH"
-				                + "FGGGFGGGGGGGGFGGGGGF");
-        /*this.getView().displayMessage(this.getModel().getExampleById(1).toString());
-
-        this.getView().displayMessage(this.getModel().getExampleByName("Example 2").toString());
-
-        final List<Example> examples = this.getModel().getAllExamples();
-        final StringBuilder message = new StringBuilder();
-        for (final Example example : examples) {
-            message.append(example);
-            message.append('\n');
-        }
-        this.getView().displayMessage(message.toString());*/
+    	this.getView().ViewFacade(this.getModel().getMapById(3));
+        
     }
     
     /**
@@ -76,16 +55,16 @@ public class ControllerFacade implements IController  {
      */
 	private IModel getModel() {
 		// TODO Auto-generated method stub
-		return null;
+		return model;
 	}
 
 	/**
 	 * get the view.
-	 * @return
+	 * @returns
 	 */
 	private IView getView(){
 		// TODO Auto-generated method stub
-		return null;
+		return view;
 	}
 
 		/*getTypeBlock();
