@@ -71,14 +71,32 @@ public class ViewFacade extends JFrame implements IView {
 		 */
 		private static final long serialVersionUID = 8681057499389021710L;
 		/**
-		 * 
+		 * JLabel l.
 		 */
 		private JLabel l = new JLabel();
+		/**
+		 * JLabel f1.
+		 */
 		private JLabel f1 = new JLabel();
+		/**
+		 * JLabel m1.
+		 */
 		private JLabel m1 = new JLabel();
+		/**
+		 * JLabel m2.
+		 */
 		private JLabel m2 = new JLabel();
+		/**
+		 * JLabel m3.
+		 */
 		private JLabel m3 = new JLabel();
+		/**
+		 * JLabel m4.
+		 */
 		private JLabel m4 = new JLabel();
+		/**
+		 * lock.
+		 */
 		Lock lock = new ReentrantLock();
 		/**
 		 * the first move.

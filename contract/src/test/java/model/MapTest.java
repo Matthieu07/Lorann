@@ -35,6 +35,14 @@ public class MapTest {
     }
 
     @Test
+    public void testSetId() {
+    	  int expected = 1;
+          assertEquals(expected, this.map.getId());
+          expected = 1;
+          this.map.setId(expected);
+          assertEquals(expected, this.map.getId());
+    }
+    @Test
     public void testGetName() {
         final String expected = "Map test";
         assertEquals(expected, this.map.getName());
