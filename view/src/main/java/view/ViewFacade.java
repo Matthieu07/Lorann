@@ -30,7 +30,7 @@ import javax.swing.UnsupportedLookAndFeelException;
  * @version 1.0
  */
 public class ViewFacade extends JFrame implements IView {
-
+	JFrame frame = new JFrame("Lorann");
 	/**
 	 * 
 	 */
@@ -47,7 +47,6 @@ public class ViewFacade extends JFrame implements IView {
 					ex.printStackTrace();
 				}
 
-				JFrame frame = new JFrame("Lorann");
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				frame.add(new printMap(level));
 				frame.pack();
@@ -74,6 +73,7 @@ public class ViewFacade extends JFrame implements IView {
 		private JLabel m3 = new JLabel();
 		private JLabel m4 = new JLabel();
 		Lock lock = new ReentrantLock();
+		private boolean move = true;
 		private boolean move1 = false;
 		private boolean move2 = false;
 		private boolean move3 = false;
@@ -82,6 +82,7 @@ public class ViewFacade extends JFrame implements IView {
 		private int points = 0;
 		private int oldxDelta = 0;
 		private int oldyDelta = 0;
+		private String level;
 		private char map[][] = {
 				{ 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N' },
 				{ 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N' },
@@ -98,6 +99,7 @@ public class ViewFacade extends JFrame implements IView {
 						'N' } };
 
 		public printMap(String level) {
+			this.level = level;
 			setBackground(Color.black);
 			setLayout(new GridLayout(13, 20));
 
@@ -293,7 +295,7 @@ public class ViewFacade extends JFrame implements IView {
 					br = false;
 					Thread b = new Thread(new RunImplball());
 					b.start();
-				} else if (xDelta != 2 && yDelta != 2) {
+				} else if (xDelta != 2 && yDelta != 2 && move) {
 					Thread t = new Thread(new RunImpl(xDelta, yDelta));
 					t.start();
 					if (br) {
@@ -480,6 +482,7 @@ public class ViewFacade extends JFrame implements IView {
 						for (int y = 0; y < 12; y++) {
 							for (int x = 0; x < 20; x++) {
 								if (map[y][x] == 'D') {
+									map[y][x] = 'E';
 									remove(x + y * 20);
 									add(go, (x + y * 20));
 								}
@@ -511,6 +514,91 @@ public class ViewFacade extends JFrame implements IView {
 						map[(index2 - (index2 % 20)) / 20][index2 % 20] = 'N';
 						setComponentZOrder(l, index);
 						map[(index - (index % 20)) / 20][index % 20] = 'A';
+					} finally {
+						lock.unlock();
+					}
+					revalidate();
+					repaint();
+				} else if (map[(index - (index % 20)) / 20][index % 20] == 'B') {
+					JLabel empt = new JLabel();
+					empt.setIcon(new ImageIcon(new ImageIcon("sprite/empty.png").getImage().getScaledInstance(64, 64,
+							Image.SCALE_DEFAULT)));
+					br = true;
+					lock.lock();
+					try {
+						map[(index2 - (index2 % 20)) / 20][index2 % 20] = 'N';
+						map[(index - (index % 20)) / 20][index % 20] = 'A';
+						remove(index);
+						add(empt, index2);
+						setComponentZOrder(l, index);
+					} finally {
+						lock.unlock();
+					}
+					revalidate();
+					repaint();
+				} else if (map[(index - (index % 20)) / 20][index % 20] == 'I'
+						|| map[(index - (index % 20)) / 20][index % 20] == 'J'
+						|| map[(index - (index % 20)) / 20][index % 20] == 'K'
+						|| map[(index - (index % 20)) / 20][index % 20] == 'L'
+						|| map[(index - (index % 20)) / 20][index % 20] == 'D') {
+					lock.lock();
+					try {
+						move = false;
+						move1 = false;
+						move2 = false;
+						move3 = false;
+						move4 = false;
+						br = true;
+						l.setIcon(new ImageIcon("sprite/crane.png"));
+						revalidate();
+						repaint();
+						try {
+							TimeUnit.MILLISECONDS.sleep(200);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+						l.setIcon(new ImageIcon("sprite/crane.png"));
+						revalidate();
+						repaint();
+						try {
+							TimeUnit.MILLISECONDS.sleep(200);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+						l.setIcon(new ImageIcon("sprite/crane.png"));
+						revalidate();
+						repaint();
+						try {
+							TimeUnit.MILLISECONDS.sleep(200);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+						l.setIcon(new ImageIcon("sprite/crane.png"));
+						revalidate();
+						repaint();
+						try {
+							TimeUnit.MILLISECONDS.sleep(200);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+						l.setIcon(new ImageIcon("sprite/crane.png"));
+						revalidate();
+						repaint();
+						try {
+							TimeUnit.MILLISECONDS.sleep(200);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+						l.setIcon(new ImageIcon("sprite/crane.png"));
+						revalidate();
+						repaint();
+						try {
+							TimeUnit.MILLISECONDS.sleep(200);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+						removeAll();
+						frame.setContentPane(new printMap(level));
 					} finally {
 						lock.unlock();
 					}
@@ -553,6 +641,20 @@ public class ViewFacade extends JFrame implements IView {
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
+					} else if (map[(indexm1 - (indexm1 % 20)) / 20][indexm1 % 20] == 'B') {
+						JLabel empt = new JLabel();
+						empt.setIcon(new ImageIcon(new ImageIcon("sprite/empty.png").getImage().getScaledInstance(64,
+								64, Image.SCALE_DEFAULT)));
+						lock.lock();
+						try {
+							map[(indm1 - (indm1 % 20)) / 20][indm1 % 20] = 'N';
+							remove(indm1);
+							add(empt, indm1);
+						} finally {
+							lock.unlock();
+						}
+						revalidate();
+						repaint();
 					}
 				}
 			}
@@ -591,6 +693,20 @@ public class ViewFacade extends JFrame implements IView {
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
+					} else if (map[(indexm2 - (indexm2 % 20)) / 20][indexm2 % 20] == 'B') {
+						JLabel empt = new JLabel();
+						empt.setIcon(new ImageIcon(new ImageIcon("sprite/empty.png").getImage().getScaledInstance(64,
+								64, Image.SCALE_DEFAULT)));
+						lock.lock();
+						try {
+							map[(indm2 - (indm2 % 20)) / 20][indm2 % 20] = 'N';
+							remove(indm2);
+							add(empt, indm2);
+						} finally {
+							lock.unlock();
+						}
+						revalidate();
+						repaint();
 					}
 				}
 			}
@@ -629,6 +745,20 @@ public class ViewFacade extends JFrame implements IView {
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
+					} else if (map[(indexm3 - (indexm3 % 20)) / 20][indexm3 % 20] == 'B') {
+						JLabel empt = new JLabel();
+						empt.setIcon(new ImageIcon(new ImageIcon("sprite/empty.png").getImage().getScaledInstance(64,
+								64, Image.SCALE_DEFAULT)));
+						lock.lock();
+						try {
+							map[(indm3 - (indm3 % 20)) / 20][indm3 % 20] = 'N';
+							remove(indm3);
+							add(empt, indm3);
+						} finally {
+							lock.unlock();
+						}
+						revalidate();
+						repaint();
 					}
 				}
 			}
@@ -667,6 +797,20 @@ public class ViewFacade extends JFrame implements IView {
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
+					} else if (map[(indexm4 - (indexm4 % 20)) / 20][indexm4 % 20] == 'B') {
+						JLabel empt = new JLabel();
+						empt.setIcon(new ImageIcon(new ImageIcon("sprite/empty.png").getImage().getScaledInstance(64,
+								64, Image.SCALE_DEFAULT)));
+						lock.lock();
+						try {
+							map[(indm4 - (indm4 % 20)) / 20][indm4 % 20] = 'N';
+							remove(indm4);
+							add(empt, indm4);
+						} finally {
+							lock.unlock();
+						}
+						revalidate();
+						repaint();
 					}
 				}
 			}
@@ -676,9 +820,6 @@ public class ViewFacade extends JFrame implements IView {
 
 			public void run() {
 
-				JLabel empt = new JLabel();
-				empt.setIcon(new ImageIcon(
-						new ImageIcon("sprite/empty.png").getImage().getScaledInstance(64, 64, Image.SCALE_DEFAULT)));
 				f1.setIcon(new ImageIcon(new ImageIcon("sprite/Fireball.gif").getImage().getScaledInstance(64, 64,
 						Image.SCALE_DEFAULT)));
 				int index = getComponentZOrder(l), index2 = getComponentZOrder(l);
@@ -714,6 +855,9 @@ public class ViewFacade extends JFrame implements IView {
 								|| map[(((index + oldxDelta * 2) + (oldyDelta * 20) * 2)
 										- (((index + oldxDelta * 2) + (oldyDelta * 20) * 2) % 20))
 										/ 20][((index + oldxDelta * 2) + (oldyDelta * 20) * 2) % 20] == 'A') {
+							JLabel empt = new JLabel();
+							empt.setIcon(new ImageIcon(new ImageIcon("sprite/empty.png").getImage()
+									.getScaledInstance(64, 64, Image.SCALE_DEFAULT)));
 							lock.lock();
 							try {
 								map[(index2 - (index2 % 20)) / 20][index2 % 20] = 'N';
@@ -744,6 +888,9 @@ public class ViewFacade extends JFrame implements IView {
 							repaint();
 							TimeUnit.MILLISECONDS.sleep(200);
 						} else if (map[(index - (index % 20)) / 20][index % 20] == 'I' && !rb) {
+							JLabel empt = new JLabel();
+							empt.setIcon(new ImageIcon(new ImageIcon("sprite/empty.png").getImage()
+									.getScaledInstance(64, 64, Image.SCALE_DEFAULT)));
 							move1 = false;
 							lock.lock();
 							try {
@@ -762,6 +909,9 @@ public class ViewFacade extends JFrame implements IView {
 						} else if (map[(((index + oldxDelta * 2) + (oldyDelta * 20) * 2)
 								- (((index + oldxDelta * 2) + (oldyDelta * 20) * 2) % 20))
 								/ 20][((index + oldxDelta * 2) + (oldyDelta * 20) * 2) % 20] == 'I') {
+							JLabel empt = new JLabel();
+							empt.setIcon(new ImageIcon(new ImageIcon("sprite/empty.png").getImage()
+									.getScaledInstance(64, 64, Image.SCALE_DEFAULT)));
 							move1 = false;
 							rb = true;
 							index += oldxDelta * 2;
@@ -781,6 +931,9 @@ public class ViewFacade extends JFrame implements IView {
 							repaint();
 							TimeUnit.MILLISECONDS.sleep(200);
 						} else if (map[(index - (index % 20)) / 20][index % 20] == 'J' && !rb) {
+							JLabel empt = new JLabel();
+							empt.setIcon(new ImageIcon(new ImageIcon("sprite/empty.png").getImage()
+									.getScaledInstance(64, 64, Image.SCALE_DEFAULT)));
 							move2 = false;
 							lock.lock();
 							try {
@@ -799,6 +952,9 @@ public class ViewFacade extends JFrame implements IView {
 						} else if (map[(((index + oldxDelta * 2) + (oldyDelta * 20) * 2)
 								- (((index + oldxDelta * 2) + (oldyDelta * 20) * 2) % 20))
 								/ 20][((index + oldxDelta * 2) + (oldyDelta * 20) * 2) % 20] == 'J') {
+							JLabel empt = new JLabel();
+							empt.setIcon(new ImageIcon(new ImageIcon("sprite/empty.png").getImage()
+									.getScaledInstance(64, 64, Image.SCALE_DEFAULT)));
 							move2 = false;
 							rb = true;
 							index += oldxDelta * 2;
@@ -818,6 +974,9 @@ public class ViewFacade extends JFrame implements IView {
 							repaint();
 							TimeUnit.MILLISECONDS.sleep(200);
 						} else if (map[(index - (index % 20)) / 20][index % 20] == 'K' && !rb) {
+							JLabel empt = new JLabel();
+							empt.setIcon(new ImageIcon(new ImageIcon("sprite/empty.png").getImage()
+									.getScaledInstance(64, 64, Image.SCALE_DEFAULT)));
 							move3 = false;
 							lock.lock();
 							try {
@@ -836,6 +995,9 @@ public class ViewFacade extends JFrame implements IView {
 						} else if (map[(((index + oldxDelta * 2) + (oldyDelta * 20) * 2)
 								- (((index + oldxDelta * 2) + (oldyDelta * 20) * 2) % 20))
 								/ 20][((index + oldxDelta * 2) + (oldyDelta * 20) * 2) % 20] == 'K') {
+							JLabel empt = new JLabel();
+							empt.setIcon(new ImageIcon(new ImageIcon("sprite/empty.png").getImage()
+									.getScaledInstance(64, 64, Image.SCALE_DEFAULT)));
 							move3 = false;
 							rb = true;
 							index += oldxDelta * 2;
@@ -855,6 +1017,9 @@ public class ViewFacade extends JFrame implements IView {
 							repaint();
 							TimeUnit.MILLISECONDS.sleep(200);
 						} else if (map[(index - (index % 20)) / 20][index % 20] == 'L' && !rb) {
+							JLabel empt = new JLabel();
+							empt.setIcon(new ImageIcon(new ImageIcon("sprite/empty.png").getImage()
+									.getScaledInstance(64, 64, Image.SCALE_DEFAULT)));
 							move4 = false;
 							lock.lock();
 							try {
@@ -873,6 +1038,9 @@ public class ViewFacade extends JFrame implements IView {
 						} else if (map[(((index + oldxDelta * 2) + (oldyDelta * 20) * 2)
 								- (((index + oldxDelta * 2) + (oldyDelta * 20) * 2) % 20))
 								/ 20][((index + oldxDelta * 2) + (oldyDelta * 20) * 2) % 20] == 'L') {
+							JLabel empt = new JLabel();
+							empt.setIcon(new ImageIcon(new ImageIcon("sprite/empty.png").getImage()
+									.getScaledInstance(64, 64, Image.SCALE_DEFAULT)));
 							move4 = false;
 							rb = true;
 							index += oldxDelta * 2;
@@ -892,6 +1060,8 @@ public class ViewFacade extends JFrame implements IView {
 							repaint();
 							TimeUnit.MILLISECONDS.sleep(200);
 						} else {
+							index += oldxDelta;
+							index += (oldyDelta * 20);
 							rb = false;
 						}
 					} catch (InterruptedException e1) {
