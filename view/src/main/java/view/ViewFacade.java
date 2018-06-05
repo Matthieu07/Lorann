@@ -264,7 +264,19 @@ public class ViewFacade extends JFrame implements IView {
 			addKeyBinding("right", KeyEvent.VK_D, new MoveAction(1, 0));
 			addKeyBinding("up", KeyEvent.VK_Z, new MoveAction(0, -1));
 			addKeyBinding("down", KeyEvent.VK_S, new MoveAction(0, 1));
+			addKeyBinding("up_left", KeyEvent.VK_A, new MoveAction(-1, -1));
+			addKeyBinding("up_right", KeyEvent.VK_E, new MoveAction(1, -1));
+			addKeyBinding("down_right", KeyEvent.VK_C, new MoveAction(1, 1));
+			addKeyBinding("down_left", KeyEvent.VK_W, new MoveAction(-1, 1));
 			addKeyBinding("space", KeyEvent.VK_SPACE, new MoveAction(2, 2));
+			addKeyBinding("left", KeyEvent.VK_NUMPAD4, new MoveAction(-1, 0));
+			addKeyBinding("right", KeyEvent.VK_NUMPAD6, new MoveAction(1, 0));
+			addKeyBinding("up", KeyEvent.VK_NUMPAD8, new MoveAction(0, -1));
+			addKeyBinding("down", KeyEvent.VK_NUMPAD2, new MoveAction(0, 1));
+			addKeyBinding("up_left", KeyEvent.VK_NUMPAD7, new MoveAction(-1, -1));
+			addKeyBinding("up_right", KeyEvent.VK_NUMPAD9, new MoveAction(1, -1));
+			addKeyBinding("down_right", KeyEvent.VK_NUMPAD3, new MoveAction(1, 1));
+			addKeyBinding("down_left", KeyEvent.VK_NUMPAD1, new MoveAction(-1, 1));
 		}
 
 		protected void addKeyBinding(String name, int keyCode, Action action) {
@@ -445,6 +457,104 @@ public class ViewFacade extends JFrame implements IView {
 						}
 					} else if (xDelta == 0 && yDelta == 1) {
 						l.setIcon(new ImageIcon(new ImageIcon("sprite/lorann_b.png").getImage().getScaledInstance(64,
+								64, Image.SCALE_DEFAULT)));
+						try {
+							lock.lock();
+							try {
+								setComponentZOrder(getComponent(index), index2);
+								map[(index2 - (index2 % 20)) / 20][index2 % 20] = 'N';
+								setComponentZOrder(l, index);
+								map[(index - (index % 20)) / 20][index % 20] = 'A';
+							} finally {
+								lock.unlock();
+							}
+							revalidate();
+							repaint();
+							TimeUnit.MILLISECONDS.sleep(500);
+							l.setIcon(new ImageIcon(new ImageIcon("sprite/Lorann.gif").getImage().getScaledInstance(64,
+									64, Image.SCALE_DEFAULT)));
+							revalidate();
+							repaint();
+
+						} catch (InterruptedException e1) {
+							e1.printStackTrace();
+						}
+					} else if (xDelta == 1 && yDelta == 1) {
+						l.setIcon(new ImageIcon(new ImageIcon("sprite/lorann_br.png").getImage().getScaledInstance(64,
+								64, Image.SCALE_DEFAULT)));
+						try {
+							lock.lock();
+							try {
+								setComponentZOrder(getComponent(index), index2);
+								map[(index2 - (index2 % 20)) / 20][index2 % 20] = 'N';
+								setComponentZOrder(l, index);
+								map[(index - (index % 20)) / 20][index % 20] = 'A';
+							} finally {
+								lock.unlock();
+							}
+							revalidate();
+							repaint();
+							TimeUnit.MILLISECONDS.sleep(500);
+							l.setIcon(new ImageIcon(new ImageIcon("sprite/Lorann.gif").getImage().getScaledInstance(64,
+									64, Image.SCALE_DEFAULT)));
+							revalidate();
+							repaint();
+
+						} catch (InterruptedException e1) {
+							e1.printStackTrace();
+						}
+					} else if (xDelta == -1 && yDelta == 1) {
+						l.setIcon(new ImageIcon(new ImageIcon("sprite/lorann_bl.png").getImage().getScaledInstance(64,
+								64, Image.SCALE_DEFAULT)));
+						try {
+							lock.lock();
+							try {
+								setComponentZOrder(getComponent(index), index2);
+								map[(index2 - (index2 % 20)) / 20][index2 % 20] = 'N';
+								setComponentZOrder(l, index);
+								map[(index - (index % 20)) / 20][index % 20] = 'A';
+							} finally {
+								lock.unlock();
+							}
+							revalidate();
+							repaint();
+							TimeUnit.MILLISECONDS.sleep(500);
+							l.setIcon(new ImageIcon(new ImageIcon("sprite/Lorann.gif").getImage().getScaledInstance(64,
+									64, Image.SCALE_DEFAULT)));
+							revalidate();
+							repaint();
+
+						} catch (InterruptedException e1) {
+							e1.printStackTrace();
+						}
+					}
+
+					else if (xDelta == 1 && yDelta == -1) {
+						l.setIcon(new ImageIcon(new ImageIcon("sprite/lorann_ur.png").getImage().getScaledInstance(64,
+								64, Image.SCALE_DEFAULT)));
+						try {
+							lock.lock();
+							try {
+								setComponentZOrder(getComponent(index), index2);
+								map[(index2 - (index2 % 20)) / 20][index2 % 20] = 'N';
+								setComponentZOrder(l, index);
+								map[(index - (index % 20)) / 20][index % 20] = 'A';
+							} finally {
+								lock.unlock();
+							}
+							revalidate();
+							repaint();
+							TimeUnit.MILLISECONDS.sleep(500);
+							l.setIcon(new ImageIcon(new ImageIcon("sprite/Lorann.gif").getImage().getScaledInstance(64,
+									64, Image.SCALE_DEFAULT)));
+							revalidate();
+							repaint();
+
+						} catch (InterruptedException e1) {
+							e1.printStackTrace();
+						}
+					} else if (xDelta == -1 && yDelta == -1) {
+						l.setIcon(new ImageIcon(new ImageIcon("sprite/lorann_ul.png").getImage().getScaledInstance(64,
 								64, Image.SCALE_DEFAULT)));
 						try {
 							lock.lock();
