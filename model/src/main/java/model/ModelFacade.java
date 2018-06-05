@@ -24,7 +24,7 @@ public final class ModelFacade implements IModel {
      * @param id
      * 			the map identifier.
      * 
-     * return the map by the id.
+     * return the map by using the id.
      * 
      * @return the id of the map. 
      * 

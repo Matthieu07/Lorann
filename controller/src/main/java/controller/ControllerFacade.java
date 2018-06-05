@@ -51,7 +51,7 @@ public class ControllerFacade implements IController  {
     
     /**
      * get the model.
-     * @return
+     * @return model
      */
 	private IModel getModel() {
 		// TODO Auto-generated method stub
@@ -60,7 +60,7 @@ public class ControllerFacade implements IController  {
 
 	/**
 	 * get the view.
-	 * @returns
+	 * @return view
 	 */
 	private IView getView(){
 		// TODO Auto-generated method stub

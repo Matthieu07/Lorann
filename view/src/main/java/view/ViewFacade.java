@@ -63,7 +63,11 @@ public class ViewFacade extends JFrame implements IView {
 			}
 		});
 	}
-
+/**
+ * This class creates the map and sets all its settings 
+ * @author chris
+ *
+ */
 	public class printMap extends JPanel {
 
 		/**
@@ -130,6 +134,9 @@ public class ViewFacade extends JFrame implements IView {
 		 * the oldyDelta.
 		 */
 		private int oldyDelta = 0;
+		/**
+		 * an empty board set before the use of the pre-created maps
+		 */
 		private char map[][] = {
 				{ 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N' },
 				{ 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N' },
@@ -330,7 +337,12 @@ public class ViewFacade extends JFrame implements IView {
 			inputMap.put(KeyStroke.getKeyStroke(keyCode, 0), name);
 			actionMap.put(name, action);
 		}
-
+		
+		/**
+		 * This class uses the different threads
+		 * @author chris
+		 *
+		 */
 		public class MoveAction extends AbstractAction {
 
 			/**
@@ -410,7 +422,12 @@ public class ViewFacade extends JFrame implements IView {
 			}
 
 		}
-
+		/**
+		 * This class allows The player's character to move on the panel
+		 * @author chris
+		 *
+		 */
+ 
 		public class RunImpl implements Runnable {
 			private int xDelta;
 			private int yDelta;
@@ -589,6 +606,11 @@ public class ViewFacade extends JFrame implements IView {
 				}
 			}
 		}
+		/**
+		 * This class allows the first monster to move on the panel
+		 * @author chris
+		 *
+		 */
 
 		public class RunImplmob1 implements Runnable {
 
@@ -627,7 +649,11 @@ public class ViewFacade extends JFrame implements IView {
 				}
 			}
 		}
-
+		/**
+		 * This class allows the second monster to move on the panel
+		 * @author chris
+		 *
+		 */
 		public class RunImplmob2 implements Runnable {
 
 			public void run() {
@@ -665,7 +691,11 @@ public class ViewFacade extends JFrame implements IView {
 				}
 			}
 		}
-
+		/**
+		 * This class allows the third monster to move on the panel
+		 * @author chris
+		 *
+		 */
 		public class RunImplmob3 implements Runnable {
 
 			public void run() {
@@ -703,7 +733,11 @@ public class ViewFacade extends JFrame implements IView {
 				}
 			}
 		}
-
+		/**
+		 * This class allows the forth monster to move on the panel
+		 * @author chris
+		 *
+		 */
 		public class RunImplmob4 implements Runnable {
 
 			public void run() {
@@ -741,7 +775,11 @@ public class ViewFacade extends JFrame implements IView {
 				}
 			}
 		}
-
+		/**
+		 * This class allows the fireball to move on the panel
+		 * @author chris
+		 *
+		 */
 		public class RunImplball implements Runnable {
 
 			public void run() {
