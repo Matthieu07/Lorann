@@ -1,7 +1,6 @@
 package view;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -20,8 +19,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  * <h1>The Class ViewFacade provides a facade of the View component.</h1>
@@ -29,50 +26,43 @@ import javax.swing.UnsupportedLookAndFeelException;
  * @author Jean-Aymeric DIET jadiet@cesi.fr
  * @version 1.0
  */
-public class ViewFacade extends JFrame implements IView {
 
+public class ViewFacade extends JFrame implements IView {
 	/**
 	 * the serialVersionUID.
 	 */
-	private static final long serialVersionUID = -5606686993021480646L;
+	private static final long serialVersionUID = 9182866186936817112L;
+	public JFrame frame = new JFrame("Lorann");
+	public ViewFacade() {
+		super();
+	}
 
 	/**
-	 * the method ViewFacade
-	 * 
+	 * the method printWindow
+	 *
 	 * @param level.
 	 * 				the level in the game.
 	 */
-	public void ViewFacade(String level) {
-		EventQueue.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-						| UnsupportedLookAndFeelException ex) {
-					ex.printStackTrace();
-				}
+	public void printWindow(String level) {
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.add(new printMap(level));
+		frame.pack();
+		frame.setLocationRelativeTo(null);
+		frame.setResizable(false);
+		frame.setVisible(true);
 
-				JFrame frame = new JFrame("Lorann");
-				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				frame.add(new printMap(level));
-				frame.pack();
-				frame.setLocationRelativeTo(null);
-				frame.setResizable(false);
-				frame.setVisible(true);
-			}
-		});
 	}
-/**
- * This class creates the map and sets all its settings 
- * @author chris
- *
- */
+
+    /**
+    * This class creates the map and sets all its settings
+    * @author chris
+    *
+    */
 	public class printMap extends JPanel {
 
 		/**
-		 * the serialverionUID.
-		 */
+        * the serialVersionUID.
+        */
 		private static final long serialVersionUID = 8681057499389021710L;
 		/**
 		 * JLabel l.
@@ -103,23 +93,27 @@ public class ViewFacade extends JFrame implements IView {
 		 */
 		Lock lock = new ReentrantLock();
 		/**
-		 * the first move.
+		 * the move of Lorran.
+		 */
+		private boolean move = true;
+		/**
+		 * the move of mob1.
 		 */
 		private boolean move1 = false;
 		/**
-		 * the second move.
+		 * the move of mob2.
 		 */
 		private boolean move2 = false;
 		/**
-		 * the third move.
+		 * the move of mob3.
 		 */
 		private boolean move3 = false;
 		/**
-		 * the fourth move.
+		 * the move of mob4.
 		 */
 		private boolean move4 = false;
 		/**
-		 * br.
+		 * br : shows if the fireball is ready.
 		 */
 		private boolean br = true;
 		/**
@@ -127,13 +121,17 @@ public class ViewFacade extends JFrame implements IView {
 		 */
 		private int points = 0;
 		/**
-		 * the oldxDelta.
+		 * the old xDelta of Lorann.
 		 */
 		private int oldxDelta = 0;
 		/**
-		 * the oldyDelta.
+		 * the old yDelta of Lorann.
 		 */
 		private int oldyDelta = 0;
+		/**
+		 * the level in the game.
+		 */
+		private String level;
 		/**
 		 * an empty board set before the use of the pre-created maps
 		 */
@@ -152,11 +150,12 @@ public class ViewFacade extends JFrame implements IView {
 				{ 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N',
 						'N' } };
 
-		/**
+        /**
 		 * constructor printMap
 		 * @param level
 		 */
 		public printMap(String level) {
+			this.level = level;
 			setBackground(Color.black);
 			setLayout(new GridLayout(13, 20));
 
@@ -321,10 +320,22 @@ public class ViewFacade extends JFrame implements IView {
 			addKeyBinding("right", KeyEvent.VK_D, new MoveAction(1, 0));
 			addKeyBinding("up", KeyEvent.VK_Z, new MoveAction(0, -1));
 			addKeyBinding("down", KeyEvent.VK_S, new MoveAction(0, 1));
+			addKeyBinding("up_left", KeyEvent.VK_A, new MoveAction(-1, -1));
+			addKeyBinding("up_right", KeyEvent.VK_E, new MoveAction(1, -1));
+			addKeyBinding("down_right", KeyEvent.VK_C, new MoveAction(1, 1));
+			addKeyBinding("down_left", KeyEvent.VK_W, new MoveAction(-1, 1));
 			addKeyBinding("space", KeyEvent.VK_SPACE, new MoveAction(2, 2));
+			addKeyBinding("left", KeyEvent.VK_NUMPAD4, new MoveAction(-1, 0));
+			addKeyBinding("right", KeyEvent.VK_NUMPAD6, new MoveAction(1, 0));
+			addKeyBinding("up", KeyEvent.VK_NUMPAD8, new MoveAction(0, -1));
+			addKeyBinding("down", KeyEvent.VK_NUMPAD2, new MoveAction(0, 1));
+			addKeyBinding("up_left", KeyEvent.VK_NUMPAD7, new MoveAction(-1, -1));
+			addKeyBinding("up_right", KeyEvent.VK_NUMPAD9, new MoveAction(1, -1));
+			addKeyBinding("down_right", KeyEvent.VK_NUMPAD3, new MoveAction(1, 1));
+			addKeyBinding("down_left", KeyEvent.VK_NUMPAD1, new MoveAction(-1, 1));
 		}
 
-		/**
+        /**
 		 * the add of keyBinding.
 		 * @param name
 		 * @param keyCode
@@ -337,24 +348,24 @@ public class ViewFacade extends JFrame implements IView {
 			inputMap.put(KeyStroke.getKeyStroke(keyCode, 0), name);
 			actionMap.put(name, action);
 		}
-		
-		/**
+
+        /**
 		 * This class uses the different threads
 		 * @author chris
 		 *
 		 */
 		public class MoveAction extends AbstractAction {
-
-			/**
+            /**
 			 * the serialVersionUID
 			 */
 			private static final long serialVersionUID = -5280474716180691317L;
+
 			/**
-			 * the coordinates in the map
+			 * the relative position of Lorann.
 			 */
 			private final int xDelta, yDelta;
 
-			/**
+            /**
 			 * the constructor moveAction.
 			 * @param xDelta
 			 * @param yDelta
@@ -371,7 +382,7 @@ public class ViewFacade extends JFrame implements IView {
 					br = false;
 					Thread b = new Thread(new RunImplball());
 					b.start();
-				} else if (xDelta != 2 && yDelta != 2) {
+				} else if (xDelta != 2 && yDelta != 2 && move) {
 					Thread t = new Thread(new RunImpl(xDelta, yDelta));
 					t.start();
 					if (br) {
@@ -422,17 +433,18 @@ public class ViewFacade extends JFrame implements IView {
 			}
 
 		}
-		/**
+
+        /**
 		 * This class allows The player's character to move on the panel
 		 * @author chris
 		 *
 		 */
- 
 		public class RunImpl implements Runnable {
 			private int xDelta;
 			private int yDelta;
-			/**
-			 * the constructor RunImpl
+
+            /**
+			 * the constructor RunImpl.
 			 * @param xDelta
 			 * @param yDelta
 			 */
@@ -552,6 +564,104 @@ public class ViewFacade extends JFrame implements IView {
 						} catch (InterruptedException e1) {
 							e1.printStackTrace();
 						}
+					} else if (xDelta == 1 && yDelta == 1) {
+						l.setIcon(new ImageIcon(new ImageIcon("sprite/lorann_br.png").getImage().getScaledInstance(64,
+								64, Image.SCALE_DEFAULT)));
+						try {
+							lock.lock();
+							try {
+								setComponentZOrder(getComponent(index), index2);
+								map[(index2 - (index2 % 20)) / 20][index2 % 20] = 'N';
+								setComponentZOrder(l, index);
+								map[(index - (index % 20)) / 20][index % 20] = 'A';
+							} finally {
+								lock.unlock();
+							}
+							revalidate();
+							repaint();
+							TimeUnit.MILLISECONDS.sleep(500);
+							l.setIcon(new ImageIcon(new ImageIcon("sprite/Lorann.gif").getImage().getScaledInstance(64,
+									64, Image.SCALE_DEFAULT)));
+							revalidate();
+							repaint();
+
+						} catch (InterruptedException e1) {
+							e1.printStackTrace();
+						}
+					} else if (xDelta == -1 && yDelta == 1) {
+						l.setIcon(new ImageIcon(new ImageIcon("sprite/lorann_bl.png").getImage().getScaledInstance(64,
+								64, Image.SCALE_DEFAULT)));
+						try {
+							lock.lock();
+							try {
+								setComponentZOrder(getComponent(index), index2);
+								map[(index2 - (index2 % 20)) / 20][index2 % 20] = 'N';
+								setComponentZOrder(l, index);
+								map[(index - (index % 20)) / 20][index % 20] = 'A';
+							} finally {
+								lock.unlock();
+							}
+							revalidate();
+							repaint();
+							TimeUnit.MILLISECONDS.sleep(500);
+							l.setIcon(new ImageIcon(new ImageIcon("sprite/Lorann.gif").getImage().getScaledInstance(64,
+									64, Image.SCALE_DEFAULT)));
+							revalidate();
+							repaint();
+
+						} catch (InterruptedException e1) {
+							e1.printStackTrace();
+						}
+					}
+
+					else if (xDelta == 1 && yDelta == -1) {
+						l.setIcon(new ImageIcon(new ImageIcon("sprite/lorann_ur.png").getImage().getScaledInstance(64,
+								64, Image.SCALE_DEFAULT)));
+						try {
+							lock.lock();
+							try {
+								setComponentZOrder(getComponent(index), index2);
+								map[(index2 - (index2 % 20)) / 20][index2 % 20] = 'N';
+								setComponentZOrder(l, index);
+								map[(index - (index % 20)) / 20][index % 20] = 'A';
+							} finally {
+								lock.unlock();
+							}
+							revalidate();
+							repaint();
+							TimeUnit.MILLISECONDS.sleep(500);
+							l.setIcon(new ImageIcon(new ImageIcon("sprite/Lorann.gif").getImage().getScaledInstance(64,
+									64, Image.SCALE_DEFAULT)));
+							revalidate();
+							repaint();
+
+						} catch (InterruptedException e1) {
+							e1.printStackTrace();
+						}
+					} else if (xDelta == -1 && yDelta == -1) {
+						l.setIcon(new ImageIcon(new ImageIcon("sprite/lorann_ul.png").getImage().getScaledInstance(64,
+								64, Image.SCALE_DEFAULT)));
+						try {
+							lock.lock();
+							try {
+								setComponentZOrder(getComponent(index), index2);
+								map[(index2 - (index2 % 20)) / 20][index2 % 20] = 'N';
+								setComponentZOrder(l, index);
+								map[(index - (index % 20)) / 20][index % 20] = 'A';
+							} finally {
+								lock.unlock();
+							}
+							revalidate();
+							repaint();
+							TimeUnit.MILLISECONDS.sleep(500);
+							l.setIcon(new ImageIcon(new ImageIcon("sprite/Lorann.gif").getImage().getScaledInstance(64,
+									64, Image.SCALE_DEFAULT)));
+							revalidate();
+							repaint();
+
+						} catch (InterruptedException e1) {
+							e1.printStackTrace();
+						}
 					}
 				} else if (map[(index - (index % 20)) / 20][index % 20] == 'C') {
 					JLabel empt = new JLabel();
@@ -567,6 +677,7 @@ public class ViewFacade extends JFrame implements IView {
 						for (int y = 0; y < 12; y++) {
 							for (int x = 0; x < 20; x++) {
 								if (map[y][x] == 'D') {
+									map[y][x] = 'E';
 									remove(x + y * 20);
 									add(go, (x + y * 20));
 								}
@@ -603,15 +714,100 @@ public class ViewFacade extends JFrame implements IView {
 					}
 					revalidate();
 					repaint();
+				} else if (map[(index - (index % 20)) / 20][index % 20] == 'B') {
+					JLabel empt = new JLabel();
+					empt.setIcon(new ImageIcon(new ImageIcon("sprite/empty.png").getImage().getScaledInstance(64, 64,
+							Image.SCALE_DEFAULT)));
+					br = true;
+					lock.lock();
+					try {
+						map[(index2 - (index2 % 20)) / 20][index2 % 20] = 'N';
+						map[(index - (index % 20)) / 20][index % 20] = 'A';
+						remove(index);
+						add(empt, index2);
+						setComponentZOrder(l, index);
+					} finally {
+						lock.unlock();
+					}
+					revalidate();
+					repaint();
+				} else if (map[(index - (index % 20)) / 20][index % 20] == 'I'
+						|| map[(index - (index % 20)) / 20][index % 20] == 'J'
+						|| map[(index - (index % 20)) / 20][index % 20] == 'K'
+						|| map[(index - (index % 20)) / 20][index % 20] == 'L'
+						|| map[(index - (index % 20)) / 20][index % 20] == 'D') {
+					lock.lock();
+					try {
+						move = false;
+						move1 = false;
+						move2 = false;
+						move3 = false;
+						move4 = false;
+						br = true;
+						l.setIcon(new ImageIcon("sprite/crane.png"));
+						revalidate();
+						repaint();
+						try {
+							TimeUnit.MILLISECONDS.sleep(200);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+						l.setIcon(new ImageIcon("sprite/crane.png"));
+						revalidate();
+						repaint();
+						try {
+							TimeUnit.MILLISECONDS.sleep(200);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+						l.setIcon(new ImageIcon("sprite/crane.png"));
+						revalidate();
+						repaint();
+						try {
+							TimeUnit.MILLISECONDS.sleep(200);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+						l.setIcon(new ImageIcon("sprite/crane.png"));
+						revalidate();
+						repaint();
+						try {
+							TimeUnit.MILLISECONDS.sleep(200);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+						l.setIcon(new ImageIcon("sprite/crane.png"));
+						revalidate();
+						repaint();
+						try {
+							TimeUnit.MILLISECONDS.sleep(200);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+						l.setIcon(new ImageIcon("sprite/crane.png"));
+						revalidate();
+						repaint();
+						try {
+							TimeUnit.MILLISECONDS.sleep(200);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+						removeAll();
+						frame.setContentPane(new printMap(level));
+					} finally {
+						lock.unlock();
+					}
+					revalidate();
+					repaint();
 				}
 			}
 		}
-		/**
+
+        /**
 		 * This class allows the first monster to move on the panel
 		 * @author chris
 		 *
 		 */
-
 		public class RunImplmob1 implements Runnable {
 
 			public void run() {
@@ -645,10 +841,89 @@ public class ViewFacade extends JFrame implements IView {
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
+					} else if (map[(indexm1 - (indexm1 % 20)) / 20][indexm1 % 20] == 'A') {
+						lock.lock();
+						try {
+							move = false;
+							move1 = false;
+							move2 = false;
+							move3 = false;
+							move4 = false;
+							br = true;
+							l.setIcon(new ImageIcon("sprite/crane.png"));
+							revalidate();
+							repaint();
+							try {
+								TimeUnit.MILLISECONDS.sleep(200);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+							l.setIcon(new ImageIcon("sprite/crane.png"));
+							revalidate();
+							repaint();
+							try {
+								TimeUnit.MILLISECONDS.sleep(200);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+							l.setIcon(new ImageIcon("sprite/crane.png"));
+							revalidate();
+							repaint();
+							try {
+								TimeUnit.MILLISECONDS.sleep(200);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+							l.setIcon(new ImageIcon("sprite/crane.png"));
+							revalidate();
+							repaint();
+							try {
+								TimeUnit.MILLISECONDS.sleep(200);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+							l.setIcon(new ImageIcon("sprite/crane.png"));
+							revalidate();
+							repaint();
+							try {
+								TimeUnit.MILLISECONDS.sleep(200);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+							l.setIcon(new ImageIcon("sprite/crane.png"));
+							revalidate();
+							repaint();
+							try {
+								TimeUnit.MILLISECONDS.sleep(200);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+							removeAll();
+							frame.setContentPane(new printMap(level));
+						} finally {
+							lock.unlock();
+						}
+						revalidate();
+						repaint();
+					} else if (map[(indexm1 - (indexm1 % 20)) / 20][indexm1 % 20] == 'B') {
+						JLabel empt = new JLabel();
+						empt.setIcon(new ImageIcon(new ImageIcon("sprite/empty.png").getImage().getScaledInstance(64,
+								64, Image.SCALE_DEFAULT)));
+						lock.lock();
+						try {
+							map[(indm1 - (indm1 % 20)) / 20][indm1 % 20] = 'N';
+							remove(indm1);
+							add(empt, indm1);
+						} finally {
+							lock.unlock();
+						}
+						revalidate();
+						repaint();
 					}
 				}
 			}
 		}
+
 		/**
 		 * This class allows the second monster to move on the panel
 		 * @author chris
@@ -687,10 +962,89 @@ public class ViewFacade extends JFrame implements IView {
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
+					} else if (map[(indexm2 - (indexm2 % 20)) / 20][indexm2 % 20] == 'A') {
+						lock.lock();
+						try {
+							move = false;
+							move1 = false;
+							move2 = false;
+							move3 = false;
+							move4 = false;
+							br = true;
+							l.setIcon(new ImageIcon("sprite/crane.png"));
+							revalidate();
+							repaint();
+							try {
+								TimeUnit.MILLISECONDS.sleep(200);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+							l.setIcon(new ImageIcon("sprite/crane.png"));
+							revalidate();
+							repaint();
+							try {
+								TimeUnit.MILLISECONDS.sleep(200);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+							l.setIcon(new ImageIcon("sprite/crane.png"));
+							revalidate();
+							repaint();
+							try {
+								TimeUnit.MILLISECONDS.sleep(200);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+							l.setIcon(new ImageIcon("sprite/crane.png"));
+							revalidate();
+							repaint();
+							try {
+								TimeUnit.MILLISECONDS.sleep(200);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+							l.setIcon(new ImageIcon("sprite/crane.png"));
+							revalidate();
+							repaint();
+							try {
+								TimeUnit.MILLISECONDS.sleep(200);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+							l.setIcon(new ImageIcon("sprite/crane.png"));
+							revalidate();
+							repaint();
+							try {
+								TimeUnit.MILLISECONDS.sleep(200);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+							removeAll();
+							frame.setContentPane(new printMap(level));
+						} finally {
+							lock.unlock();
+						}
+						revalidate();
+						repaint();
+					} else if (map[(indexm2 - (indexm2 % 20)) / 20][indexm2 % 20] == 'B') {
+						JLabel empt = new JLabel();
+						empt.setIcon(new ImageIcon(new ImageIcon("sprite/empty.png").getImage().getScaledInstance(64,
+								64, Image.SCALE_DEFAULT)));
+						lock.lock();
+						try {
+							map[(indm2 - (indm2 % 20)) / 20][indm2 % 20] = 'N';
+							remove(indm2);
+							add(empt, indm2);
+						} finally {
+							lock.unlock();
+						}
+						revalidate();
+						repaint();
 					}
 				}
 			}
 		}
+
 		/**
 		 * This class allows the third monster to move on the panel
 		 * @author chris
@@ -729,10 +1083,89 @@ public class ViewFacade extends JFrame implements IView {
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
+					} else if (map[(indexm3 - (indexm3 % 20)) / 20][indexm3 % 20] == 'A') {
+						lock.lock();
+						try {
+							move = false;
+							move1 = false;
+							move2 = false;
+							move3 = false;
+							move4 = false;
+							br = true;
+							l.setIcon(new ImageIcon("sprite/crane.png"));
+							revalidate();
+							repaint();
+							try {
+								TimeUnit.MILLISECONDS.sleep(200);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+							l.setIcon(new ImageIcon("sprite/crane.png"));
+							revalidate();
+							repaint();
+							try {
+								TimeUnit.MILLISECONDS.sleep(200);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+							l.setIcon(new ImageIcon("sprite/crane.png"));
+							revalidate();
+							repaint();
+							try {
+								TimeUnit.MILLISECONDS.sleep(200);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+							l.setIcon(new ImageIcon("sprite/crane.png"));
+							revalidate();
+							repaint();
+							try {
+								TimeUnit.MILLISECONDS.sleep(200);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+							l.setIcon(new ImageIcon("sprite/crane.png"));
+							revalidate();
+							repaint();
+							try {
+								TimeUnit.MILLISECONDS.sleep(200);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+							l.setIcon(new ImageIcon("sprite/crane.png"));
+							revalidate();
+							repaint();
+							try {
+								TimeUnit.MILLISECONDS.sleep(200);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+							removeAll();
+							frame.setContentPane(new printMap(level));
+						} finally {
+							lock.unlock();
+						}
+						revalidate();
+						repaint();
+					} else if (map[(indexm3 - (indexm3 % 20)) / 20][indexm3 % 20] == 'B') {
+						JLabel empt = new JLabel();
+						empt.setIcon(new ImageIcon(new ImageIcon("sprite/empty.png").getImage().getScaledInstance(64,
+								64, Image.SCALE_DEFAULT)));
+						lock.lock();
+						try {
+							map[(indm3 - (indm3 % 20)) / 20][indm3 % 20] = 'N';
+							remove(indm3);
+							add(empt, indm3);
+						} finally {
+							lock.unlock();
+						}
+						revalidate();
+						repaint();
 					}
 				}
 			}
 		}
+
 		/**
 		 * This class allows the forth monster to move on the panel
 		 * @author chris
@@ -771,10 +1204,89 @@ public class ViewFacade extends JFrame implements IView {
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
+					} else if (map[(indexm4 - (indexm4 % 20)) / 20][indexm4 % 20] == 'A') {
+						lock.lock();
+						try {
+							move = false;
+							move1 = false;
+							move2 = false;
+							move3 = false;
+							move4 = false;
+							br = true;
+							l.setIcon(new ImageIcon("sprite/crane.png"));
+							revalidate();
+							repaint();
+							try {
+								TimeUnit.MILLISECONDS.sleep(200);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+							l.setIcon(new ImageIcon("sprite/crane.png"));
+							revalidate();
+							repaint();
+							try {
+								TimeUnit.MILLISECONDS.sleep(200);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+							l.setIcon(new ImageIcon("sprite/crane.png"));
+							revalidate();
+							repaint();
+							try {
+								TimeUnit.MILLISECONDS.sleep(200);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+							l.setIcon(new ImageIcon("sprite/crane.png"));
+							revalidate();
+							repaint();
+							try {
+								TimeUnit.MILLISECONDS.sleep(200);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+							l.setIcon(new ImageIcon("sprite/crane.png"));
+							revalidate();
+							repaint();
+							try {
+								TimeUnit.MILLISECONDS.sleep(200);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+							l.setIcon(new ImageIcon("sprite/crane.png"));
+							revalidate();
+							repaint();
+							try {
+								TimeUnit.MILLISECONDS.sleep(200);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+							removeAll();
+							frame.setContentPane(new printMap(level));
+						} finally {
+							lock.unlock();
+						}
+						revalidate();
+						repaint();
+					} else if (map[(indexm4 - (indexm4 % 20)) / 20][indexm4 % 20] == 'B') {
+						JLabel empt = new JLabel();
+						empt.setIcon(new ImageIcon(new ImageIcon("sprite/empty.png").getImage().getScaledInstance(64,
+								64, Image.SCALE_DEFAULT)));
+						lock.lock();
+						try {
+							map[(indm4 - (indm4 % 20)) / 20][indm4 % 20] = 'N';
+							remove(indm4);
+							add(empt, indm4);
+						} finally {
+							lock.unlock();
+						}
+						revalidate();
+						repaint();
 					}
 				}
 			}
 		}
+
 		/**
 		 * This class allows the fireball to move on the panel
 		 * @author chris
@@ -784,9 +1296,6 @@ public class ViewFacade extends JFrame implements IView {
 
 			public void run() {
 
-				JLabel empt = new JLabel();
-				empt.setIcon(new ImageIcon(
-						new ImageIcon("sprite/empty.png").getImage().getScaledInstance(64, 64, Image.SCALE_DEFAULT)));
 				f1.setIcon(new ImageIcon(new ImageIcon("sprite/Fireball.gif").getImage().getScaledInstance(64, 64,
 						Image.SCALE_DEFAULT)));
 				int index = getComponentZOrder(l), index2 = getComponentZOrder(l);
@@ -822,6 +1331,9 @@ public class ViewFacade extends JFrame implements IView {
 								|| map[(((index + oldxDelta * 2) + (oldyDelta * 20) * 2)
 										- (((index + oldxDelta * 2) + (oldyDelta * 20) * 2) % 20))
 										/ 20][((index + oldxDelta * 2) + (oldyDelta * 20) * 2) % 20] == 'A') {
+							JLabel empt = new JLabel();
+							empt.setIcon(new ImageIcon(new ImageIcon("sprite/empty.png").getImage()
+									.getScaledInstance(64, 64, Image.SCALE_DEFAULT)));
 							lock.lock();
 							try {
 								map[(index2 - (index2 % 20)) / 20][index2 % 20] = 'N';
@@ -852,6 +1364,9 @@ public class ViewFacade extends JFrame implements IView {
 							repaint();
 							TimeUnit.MILLISECONDS.sleep(200);
 						} else if (map[(index - (index % 20)) / 20][index % 20] == 'I' && !rb) {
+							JLabel empt = new JLabel();
+							empt.setIcon(new ImageIcon(new ImageIcon("sprite/empty.png").getImage()
+									.getScaledInstance(64, 64, Image.SCALE_DEFAULT)));
 							move1 = false;
 							lock.lock();
 							try {
@@ -870,6 +1385,9 @@ public class ViewFacade extends JFrame implements IView {
 						} else if (map[(((index + oldxDelta * 2) + (oldyDelta * 20) * 2)
 								- (((index + oldxDelta * 2) + (oldyDelta * 20) * 2) % 20))
 								/ 20][((index + oldxDelta * 2) + (oldyDelta * 20) * 2) % 20] == 'I') {
+							JLabel empt = new JLabel();
+							empt.setIcon(new ImageIcon(new ImageIcon("sprite/empty.png").getImage()
+									.getScaledInstance(64, 64, Image.SCALE_DEFAULT)));
 							move1 = false;
 							rb = true;
 							index += oldxDelta * 2;
@@ -889,6 +1407,9 @@ public class ViewFacade extends JFrame implements IView {
 							repaint();
 							TimeUnit.MILLISECONDS.sleep(200);
 						} else if (map[(index - (index % 20)) / 20][index % 20] == 'J' && !rb) {
+							JLabel empt = new JLabel();
+							empt.setIcon(new ImageIcon(new ImageIcon("sprite/empty.png").getImage()
+									.getScaledInstance(64, 64, Image.SCALE_DEFAULT)));
 							move2 = false;
 							lock.lock();
 							try {
@@ -907,6 +1428,9 @@ public class ViewFacade extends JFrame implements IView {
 						} else if (map[(((index + oldxDelta * 2) + (oldyDelta * 20) * 2)
 								- (((index + oldxDelta * 2) + (oldyDelta * 20) * 2) % 20))
 								/ 20][((index + oldxDelta * 2) + (oldyDelta * 20) * 2) % 20] == 'J') {
+							JLabel empt = new JLabel();
+							empt.setIcon(new ImageIcon(new ImageIcon("sprite/empty.png").getImage()
+									.getScaledInstance(64, 64, Image.SCALE_DEFAULT)));
 							move2 = false;
 							rb = true;
 							index += oldxDelta * 2;
@@ -926,6 +1450,9 @@ public class ViewFacade extends JFrame implements IView {
 							repaint();
 							TimeUnit.MILLISECONDS.sleep(200);
 						} else if (map[(index - (index % 20)) / 20][index % 20] == 'K' && !rb) {
+							JLabel empt = new JLabel();
+							empt.setIcon(new ImageIcon(new ImageIcon("sprite/empty.png").getImage()
+									.getScaledInstance(64, 64, Image.SCALE_DEFAULT)));
 							move3 = false;
 							lock.lock();
 							try {
@@ -944,6 +1471,9 @@ public class ViewFacade extends JFrame implements IView {
 						} else if (map[(((index + oldxDelta * 2) + (oldyDelta * 20) * 2)
 								- (((index + oldxDelta * 2) + (oldyDelta * 20) * 2) % 20))
 								/ 20][((index + oldxDelta * 2) + (oldyDelta * 20) * 2) % 20] == 'K') {
+							JLabel empt = new JLabel();
+							empt.setIcon(new ImageIcon(new ImageIcon("sprite/empty.png").getImage()
+									.getScaledInstance(64, 64, Image.SCALE_DEFAULT)));
 							move3 = false;
 							rb = true;
 							index += oldxDelta * 2;
@@ -963,6 +1493,9 @@ public class ViewFacade extends JFrame implements IView {
 							repaint();
 							TimeUnit.MILLISECONDS.sleep(200);
 						} else if (map[(index - (index % 20)) / 20][index % 20] == 'L' && !rb) {
+							JLabel empt = new JLabel();
+							empt.setIcon(new ImageIcon(new ImageIcon("sprite/empty.png").getImage()
+									.getScaledInstance(64, 64, Image.SCALE_DEFAULT)));
 							move4 = false;
 							lock.lock();
 							try {
@@ -981,6 +1514,9 @@ public class ViewFacade extends JFrame implements IView {
 						} else if (map[(((index + oldxDelta * 2) + (oldyDelta * 20) * 2)
 								- (((index + oldxDelta * 2) + (oldyDelta * 20) * 2) % 20))
 								/ 20][((index + oldxDelta * 2) + (oldyDelta * 20) * 2) % 20] == 'L') {
+							JLabel empt = new JLabel();
+							empt.setIcon(new ImageIcon(new ImageIcon("sprite/empty.png").getImage()
+									.getScaledInstance(64, 64, Image.SCALE_DEFAULT)));
 							move4 = false;
 							rb = true;
 							index += oldxDelta * 2;
@@ -1000,6 +1536,8 @@ public class ViewFacade extends JFrame implements IView {
 							repaint();
 							TimeUnit.MILLISECONDS.sleep(200);
 						} else {
+							index += oldxDelta;
+							index += (oldyDelta * 20);
 							rb = false;
 						}
 					} catch (InterruptedException e1) {
@@ -1009,11 +1547,5 @@ public class ViewFacade extends JFrame implements IView {
 				}
 			}
 		}
-	}
-
-	@Override
-	public void printMap(String string) {
-		// TODO Auto-generated method stub
-		
 	}
 }

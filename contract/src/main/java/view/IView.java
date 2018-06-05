@@ -9,18 +9,10 @@ package view;
 public interface IView {
 
     /**
-     * ViewFacade.
-     *
-     * @param level
-     *            the level
-     */
-    void ViewFacade(String level);
-
-    /**
      * printMap.
      * 
      * @param string
      * 
      */
-	void printMap(String string);
+	void printWindow(String string);
 }
