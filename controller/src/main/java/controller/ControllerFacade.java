@@ -78,6 +78,10 @@ public class ControllerFacade implements IController {
 								+ "FGGGGFGGGGFDNFGGGGGF");
     	
     }
+    
+    public void switchMap(int id) {
+    	
+    }
 
     /**
      * Gets the view.

@@ -16,4 +16,5 @@ public interface IView {
      */
 
 	void ViewFacade(String string);
+	//void switchMap(int id);
 }
