@@ -3,9 +3,14 @@ package controller;
 import java.sql.SQLException;
 import java.util.List;
 
-import model.Example;
+import model.Map;
 import model.IModel;
 import view.IView;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 /**
  * <h1>The Class ControllerFacade provides a facade of the Controller component.</h1>
@@ -13,12 +18,10 @@ import view.IView;
  * @author Jean-Aymeric DIET jadiet@cesi.fr
  * @version 1.0
  */
-public class ControllerFacade implements IController {
+public class ControllerFacade implements IController  {
 
-    /** The view. */
+    /** The view and the model */
     private final IView  view;
-
-    /** The model. */
     private final IModel model;
 
     /**
@@ -42,34 +45,26 @@ public class ControllerFacade implements IController {
      *             the SQL exception
      */
     public void start() throws SQLException {
-        this.getView().displayMessage(this.getModel().getExampleById(1).toString());
-
-        this.getView().displayMessage(this.getModel().getExampleByName("Example 2").toString());
-
-        final List<Example> examples = this.getModel().getAllExamples();
-        final StringBuilder message = new StringBuilder();
-        for (final Example example : examples) {
-            message.append(example);
-            message.append('\n');
-        }
-        this.getView().displayMessage(message.toString());
+    	this.getView().printWindow(this.getModel().getMapById(1));
+        
     }
-
+    
     /**
-     * Gets the view.
-     *
-     * @return the view
+     * get the model.
+     * @return model
      */
-    public IView getView() {
-        return this.view;
-    }
+	private IModel getModel() {
+		// TODO Auto-generated method stub
+		return model;
+	}
 
-    /**
-     * Gets the model.
-     *
-     * @return the model
-     */
-    public IModel getModel() {
-        return this.model;
-    }
+	/**
+	 * get the view.
+	 * @return view
+	 */
+	private IView getView(){
+		// TODO Auto-generated method stub
+		return view;
+	}
+
 }

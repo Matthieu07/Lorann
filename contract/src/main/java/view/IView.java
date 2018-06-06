@@ -9,10 +9,10 @@ package view;
 public interface IView {
 
     /**
-     * Display message.
-     *
-     * @param message
-     *            the message
+     * printMap.
+     * 
+     * @param string
+     * 
      */
-    void displayMessage(String message);
+	void printWindow(String string);
 }

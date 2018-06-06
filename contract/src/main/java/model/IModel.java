@@ -2,6 +2,7 @@ package model;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <h1>The Interface IModel.</h1>
@@ -12,33 +13,33 @@ import java.util.List;
 public interface IModel {
 
     /**
-     * Gets the example by id.
+     * Gets the map by id.
      *
      * @param id
      *            the id
-     * @return the example by id
+     * @return the map by id
      * @throws SQLException
      *             the SQL exception
      */
-    Example getExampleById(int id) throws SQLException;
+	String getMapById(int id) throws SQLException;
 
     /**
-     * Gets the example by name.
+     * Gets the map by name.
      *
      * @param name
      *            the name
-     * @return the example by name
+     * @return the map by name
      * @throws SQLException
      *             the SQL exception
      */
-    Example getExampleByName(String name) throws SQLException;
+	String getMapByName(String name) throws SQLException;
 
     /**
-     * Gets the all examples.
+     * Gets the all maps.
      *
-     * @return the all examples
+     * @return all the maps 
      * @throws SQLException
      *             the SQL exception
      */
-    List<Example> getAllExamples() throws SQLException;
+    List<String> getAllMaps() throws SQLException;
 }

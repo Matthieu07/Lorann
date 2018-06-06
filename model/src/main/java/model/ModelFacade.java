@@ -3,7 +3,7 @@ package model;
 import java.sql.SQLException;
 import java.util.List;
 
-import model.dao.ExampleDAO;
+import model.dao.MapDAO;
 
 /**
  * <h1>The Class ModelFacade provides a facade of the Model component.</h1>
@@ -20,31 +20,52 @@ public final class ModelFacade implements IModel {
         super();
     }
 
-    /*
-     * (non-Javadoc)
-     * @see model.IModel#getExampleById(int)
+    /**
+     * @param id
+     * 			the map identifier.
+     * 
+     * return the map by using the id.
+     * 
+     * @return the id of the map. 
+     * 
+     * @throws SQLException if the SQL have exceptions.
+     * 
+     * @see model.IModel#getMapById(int)
      */
     @Override
-    public Example getExampleById(final int id) throws SQLException {
-        return ExampleDAO.getExampleById(id);
+    public String getMapById(final int id) throws SQLException {
+        return MapDAO.getMapById(id);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see model.IModel#getExampleByName(java.lang.String)
+    /**
+     * @param name
+     * 			the name of the map.
+     * 
+     * return the name of the map.
+     * 
+     * @return the name of the map. 
+     * 
+     * @throws SQLException if the SQL have exceptions.
+     * 
+     * @see model.IModel#getMapByName(java.lang.String)
      */
     @Override
-    public Example getExampleByName(final String name) throws SQLException {
-        return ExampleDAO.getExampleByName(name);
+    public String getMapByName(final String name) throws SQLException {
+        return MapDAO.getMapByName(name);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see model.IModel#getAllExamples()
+    /**
+     * return the list of all the maps.
+     * 
+     * @return the list of all the maps.
+     * 
+     * @throws SQLException if the SQL have exceptions.
+     * 
+     * @see model.IModel#getAllMaps()
      */
     @Override
-    public List<Example> getAllExamples() throws SQLException {
-        return ExampleDAO.getAllExamples();
+    public List<String> getAllMaps() throws SQLException {
+        return MapDAO.getAllMaps();
     }
 
 }
